@@ -49,12 +49,15 @@ const Category = () => {
   const router = useRouter();
   return (
     <View className="flex-1">
-      <Header displaySubject={null} displayUser={false} title="" image={""} />
+      <Header
+        displayTabTitle={"Subjects"}
+        displaySubject={null}
+        displayUser={false}
+        title=""
+        image={""}
+      />
       <ScrollView className="mx-10">
-        <Text className="font-montBold text-3xl text-[#113768]">
-          Subject Test
-        </Text>
-        <View className="border-[1px] border-[#c0dafc] gap-4 h-fit w-full mt-6 rounded-[25] p-6">
+        <View className="border-[1px] border-[#c0dafc] gap-4 h-fit w-full  rounded-[25] p-6">
           {subjects.map((subject) => (
             <TouchableOpacity
               onPress={() => router.push(`/paper/${subject.name}`)}

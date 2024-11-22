@@ -12,6 +12,7 @@ const Home = () => {
   return (
     <View className="flex-1">
       <Header
+        displayTabTitle={null}
         displayUser
         displaySubject={null}
         title={"Shafin"}
@@ -28,42 +29,46 @@ const Home = () => {
               <AntDesign name="arrowright" size={24} color="#113768" />
             </Link>
           </View>
-          <View className="flex-1 flex-row flex-wrap justify-between gap-4 pt-7">
-            <View className="justify-center items-center border-2 border-[#c5dbf8] h-[180] w-[180] rounded-[25]">
-              <Image
-                source={require("@/assets/images/icons/topic-test.png")}
-                style={{ width: 78, height: 78 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Topic Test
-              </Text>
+          <View className="flex-1 gap-4 pt-7">
+            <View className="flex-row justify-between ">
+              <View className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                <Image
+                  source={require("@/assets/images/icons/topic-test.png")}
+                  style={{ width: 78, height: 78 }}
+                />
+                <Text className="text-lg font-montMedium text-[#113768]">
+                  Topic Test
+                </Text>
+              </View>
+              <View className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                <Image
+                  source={require("@/assets/images/icons/mock-test.png")}
+                  style={{ width: 78, height: 78 }}
+                />
+                <Text className="text-lg font-montMedium text-[#113768]">
+                  Mock Test
+                </Text>
+              </View>
             </View>
-            <View className="justify-center items-center border-2 border-[#c5dbf8] h-[180] w-[180] rounded-[25]">
-              <Image
-                source={require("@/assets/images/icons/mock-test.png")}
-                style={{ width: 78, height: 78 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Mock Test
-              </Text>
-            </View>
-            <View className="justify-center items-center border-2 border-[#c5dbf8] h-[180] w-[180] rounded-[25]">
-              <Image
-                source={require("@/assets/images/icons/past-paper.png")}
-                style={{ width: 70, height: 70 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Past Papers
-              </Text>
-            </View>
-            <View className="justify-center items-center border-2 border-[#c5dbf8] h-[180] w-[180] rounded-[25]">
-              <Image
-                source={require("@/assets/images/icons/subject-test.png")}
-                style={{ width: 78, height: 78 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Subject Test
-              </Text>
+            <View className="flex-row justify-between ">
+              <View className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                <Image
+                  source={require("@/assets/images/icons/past-paper.png")}
+                  style={{ width: 70, height: 70 }}
+                />
+                <Text className="text-lg font-montMedium text-[#113768]">
+                  Past Papers
+                </Text>
+              </View>
+              <View className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                <Image
+                  source={require("@/assets/images/icons/subject-test.png")}
+                  style={{ width: 78, height: 78 }}
+                />
+                <Text className="text-lg font-montMedium text-[#113768]">
+                  Subject Test
+                </Text>
+              </View>
             </View>
           </View>
         </View>

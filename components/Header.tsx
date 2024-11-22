@@ -10,11 +10,13 @@ const Header = ({
   image,
   displayUser,
   displaySubject,
+  displayTabTitle,
 }: {
-  title: string;
-  image: any;
+  title: string | undefined;
+  image: any | undefined;
   displayUser: boolean;
-  displaySubject: null | string | string[];
+  displaySubject: null | string | string[] | undefined;
+  displayTabTitle: string | undefined | null;
 }) => {
   const router = useRouter();
   return (
@@ -31,6 +33,11 @@ const Header = ({
             <AntDesign name="arrowleft" size={24} color="white" />
           </TouchableOpacity>
           <Text style={styles.text}>{displaySubject}</Text>
+        </View>
+      )}
+      {displayTabTitle && (
+        <View style={styles.profile}>
+          <Text style={styles.text}>{displayTabTitle}</Text>
         </View>
       )}
       <FontAwesome6 name="bell" size={24} color="white" />

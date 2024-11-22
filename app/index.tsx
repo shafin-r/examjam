@@ -10,10 +10,12 @@ export default function Index() {
     <SafeAreaProvider>
       <SafeAreaView className="mx-10 h-full">
         <View className="h-full justify-around pt-10">
-          <Image
-            source={require("@/assets/images/logo/logo.png")}
-            style={styles.logo}
-          />
+          <View>
+            <Image
+              source={require("@/assets/images/logo/logo.png")}
+              style={styles.logo}
+            />
+          </View>
           <Image
             source={require("@/assets/images/static/login-graphic-1.png")}
             style={styles.login}

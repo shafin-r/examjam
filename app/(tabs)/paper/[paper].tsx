@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import Header from "@/components/Header";
+import DestructibleAlert from "@/components/DestructibleAlert";
 
 const questions = {
   Maths: [
@@ -31,12 +32,20 @@ export default function PaperScreen() {
   const categoryQuestions = questions[paper] || [];
   return (
     <View>
-      <Header displayUser={false} title="" image={""} displaySubject={paper} />
+      <Header
+        displayTabTitle={null}
+        displayUser={false}
+        title=""
+        image={""}
+        displaySubject={paper}
+      />
       <View className="mx-10">
         <View
-          className={`border-[1px] ${
-            categoryQuestions == questions[paper] ? "" : "bg-red-200"
-          } border-[#c0dafc] gap-4 h-fit w-full mt-6 rounded-[25] p-6`}
+          className={` ${
+            categoryQuestions == questions[paper]
+              ? "border-[1px] border-[#c0dafc] gap-4 h-fit w-full rounded-[25] p-6"
+              : ""
+          } `}
         >
           {categoryQuestions == questions[paper] ? (
             categoryQuestions.map((category) => (
@@ -50,11 +59,7 @@ export default function PaperScreen() {
               </TouchableOpacity>
             ))
           ) : (
-            <View className="">
-              <Text className="text-xl font-montBold text-center text-red-800">
-                There are no question papers yet.
-              </Text>
-            </View>
+            <DestructibleAlert text="There are no question papers." />
           )}
         </View>
       </View>
