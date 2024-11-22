@@ -80,6 +80,13 @@ const TabsLayout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="paper/[paper]"
+        options={{
+          href: null,
+          headerShown: false, // This excludes it from the tabs
+        }}
+      />
     </Tabs>
   );
 };
