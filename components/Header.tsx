@@ -3,6 +3,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
 
 const Header = ({
@@ -11,12 +12,14 @@ const Header = ({
   displayUser,
   displaySubject,
   displayTabTitle,
+  displayExamInfo,
 }: {
   title: string | undefined;
   image: any | undefined;
   displayUser: boolean;
   displaySubject: null | string | string[] | undefined;
   displayTabTitle: string | undefined | null;
+  displayExamInfo: string | null;
 }) => {
   const router = useRouter();
   return (
@@ -40,7 +43,14 @@ const Header = ({
           <Text style={styles.text}>{displayTabTitle}</Text>
         </View>
       )}
-      <FontAwesome6 name="bell" size={24} color="white" />
+      layer
+      {displayExamInfo && (
+        <View className="flex-row justify-between w-full">
+          <AntDesign name="arrowleft" size={30} color="white" />
+          <Text style={styles.text}>{displayExamInfo}</Text>
+          <Feather name="layers" size={30} color="white" />
+        </View>
+      )}
     </View>
   );
 };

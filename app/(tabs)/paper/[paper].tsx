@@ -12,16 +12,16 @@ import DestructibleAlert from "@/components/DestructibleAlert";
 
 const questions = {
   Maths: [
-    { id: "1", title: "Algebra Basics", rating: 9 },
-    { id: "2", title: "Geometry Fundamentals", rating: 9 },
+    { id: 1, title: "Algebra Basics", rating: 9 },
+    { id: 2, title: "Geometry Fundamentals", rating: 9 },
   ],
   Biology: [
-    { id: "3", title: "Physics Introduction", rating: 9 },
-    { id: "4", title: "Chemistry Essentials", rating: 9 },
+    { id: 3, title: "Physics Introduction", rating: 9 },
+    { id: 4, title: "Chemistry Essentials", rating: 9 },
   ],
   Physics: [
-    { id: "5", title: "World History", rating: 9 },
-    { id: "6", title: "Medieval History", rating: 9 },
+    { id: 5, title: "World History", rating: 9 },
+    { id: 6, title: "Medieval History", rating: 9 },
   ],
 };
 
@@ -49,7 +49,14 @@ export default function PaperScreen() {
         >
           {categoryQuestions == questions[paper] ? (
             categoryQuestions.map((category) => (
-              <TouchableOpacity className="border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2">
+              <TouchableOpacity
+                onPress={() =>
+                  router.push(
+                    `/exam/pretest?id=${category.id}&title=${category.title}&rating=${category.rating}`
+                  )
+                }
+                className="border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2"
+              >
                 <Text className="text-xl font-montMedium">
                   {category.title}
                 </Text>
