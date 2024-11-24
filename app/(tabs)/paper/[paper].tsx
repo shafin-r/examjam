@@ -39,7 +39,7 @@ export default function PaperScreen() {
         image={""}
         displaySubject={paper}
       />
-      <View className="mx-10">
+      <View className="mx-10 pt-10">
         <View
           className={` ${
             categoryQuestions == questions[paper]
@@ -50,6 +50,7 @@ export default function PaperScreen() {
           {categoryQuestions == questions[paper] ? (
             categoryQuestions.map((category) => (
               <TouchableOpacity
+                key={category.id}
                 onPress={() =>
                   router.push(
                     `/exam/pretest?id=${category.id}&title=${category.title}&rating=${category.rating}`

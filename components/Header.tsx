@@ -14,12 +14,12 @@ const Header = ({
   displayTabTitle,
   displayExamInfo,
 }: {
-  title: string | undefined;
-  image: any | undefined;
-  displayUser: boolean;
-  displaySubject: null | string | string[] | undefined;
-  displayTabTitle: string | undefined | null;
-  displayExamInfo: string | null;
+  title?: string | undefined;
+  image?: any | undefined;
+  displayUser?: boolean;
+  displaySubject?: null | string | string[] | undefined;
+  displayTabTitle?: string | undefined | null;
+  displayExamInfo?: string | null;
 }) => {
   const router = useRouter();
   return (
@@ -43,7 +43,6 @@ const Header = ({
           <Text style={styles.text}>{displayTabTitle}</Text>
         </View>
       )}
-      layer
       {displayExamInfo && (
         <View className="flex-row justify-between w-full">
           <AntDesign name="arrowleft" size={30} color="white" />
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
     height: 130,
     width: "100%",
     paddingTop: 30,
-    marginBottom: 20,
     paddingHorizontal: 30,
     flexDirection: "row",
     alignItems: "center",

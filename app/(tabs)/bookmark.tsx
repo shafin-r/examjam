@@ -7,6 +7,7 @@ const Bookmark = () => {
   return (
     <View>
       <Header
+        displayExamInfo={null}
         displaySubject={null}
         displayTabTitle="Bookmarks"
         displayUser={false}

@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 
 export default function Index() {
+  const router = useRouter();
   return (
     <SafeAreaProvider>
       <SafeAreaView className="mx-10 h-full">
@@ -21,10 +22,11 @@ export default function Index() {
             style={styles.login}
           />
           <View className="gap-4 ">
-            <TouchableOpacity className="w-full h-14 justify-center items-center border-2 border-[#113768] rounded-full">
-              <Link href="/home">
-                <Text className="font-montMedium">Continue with Google</Text>
-              </Link>
+            <TouchableOpacity
+              onPress={() => router.push("/home")}
+              className="w-full h-14 justify-center items-center border-2 border-[#113768] rounded-full"
+            >
+              <Text className="font-montMedium">Continue with Google</Text>
             </TouchableOpacity>
             <TouchableOpacity className="w-full h-14 justify-center items-center border-2 border-[#113768] rounded-full">
               <Text className="font-montMedium">Continue with Facebook</Text>

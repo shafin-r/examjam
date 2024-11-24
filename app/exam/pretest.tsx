@@ -64,7 +64,7 @@ export default function PretestPage() {
     <SafeAreaProvider>
       <SafeAreaView className="justify-between h-full">
         <ScrollView>
-          <View className="mx-10 mt-10 gap-6">
+          <View className="mx-10 mt-10 gap-6 pb-6">
             <TouchableOpacity onPress={() => router.push(`/category`)}>
               <AntDesign name="arrowleft" size={40} color="black" />
             </TouchableOpacity>

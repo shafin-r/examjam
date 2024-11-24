@@ -12,13 +12,14 @@ const Home = () => {
   return (
     <View className="flex-1">
       <Header
+        displayExamInfo={null}
         displayTabTitle={null}
         displayUser
         displaySubject={null}
         title={"Shafin"}
         image={profileImg}
       />
-      <ScrollView className="mx-10">
+      <ScrollView className="mx-10 pt-10">
         <SlidingGallery />
         <View className="pt-10">
           <View className="flex-row items-center justify-between">
