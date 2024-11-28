@@ -143,7 +143,9 @@ export default function PretestPage() {
 
         <TouchableOpacity
           className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
-          onPress={() => router.push(`/exam/${id}`)}
+          onPress={() =>
+            router.push(`/exam/${id}?time=${paperMeta.duration}&cancel=0`)
+          }
         >
           <Text className="font-montBold text-white text-2xl">Start Test</Text>
         </TouchableOpacity>

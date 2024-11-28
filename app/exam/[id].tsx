@@ -1,13 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import {
-  View,
-  Text,
-  FlatList,
-  Button,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import { useState } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
 
@@ -18,6 +11,7 @@ const questionPapers = {
     metadata: [
       {
         quantity: 2,
+        duration: 15,
         type: "Multiple Choice Questions",
         marking: "1 mark off",
       },
@@ -47,54 +41,6 @@ const questionPapers = {
         },
         correctAnswer: "5",
       },
-      {
-        id: 3,
-        question: "Solve for x: 2x = 10",
-        type: "multiple",
-        options: {
-          A: "5",
-          B: "6",
-          C: "4",
-          D: "10",
-        },
-        correctAnswer: "5",
-      },
-      {
-        id: 4,
-        question: "Solve for x: 2x = 10",
-        type: "single",
-        options: {
-          A: "5",
-          B: "6",
-          C: "4",
-          D: "10",
-        },
-        correctAnswer: "5",
-      },
-      {
-        id: 5,
-        question: "Solve for x: 2x = 10",
-        type: "single",
-        options: {
-          A: "5",
-          B: "6",
-          C: "4",
-          D: "10",
-        },
-        correctAnswer: "5",
-      },
-      {
-        id: 6,
-        question: "Solve for x: 2x = 10",
-        type: "single",
-        options: {
-          A: "5",
-          B: "6",
-          C: "4",
-          D: "10",
-        },
-        correctAnswer: "5",
-      },
     ],
   },
   2: {
@@ -102,6 +48,7 @@ const questionPapers = {
     metadata: [
       {
         quantity: 2,
+        duration: 15,
         type: "Multiple Choice Questions",
         marking: "1 mark off",
       },
@@ -137,10 +84,11 @@ const questionPapers = {
 
 export default function ExamPage() {
   const router = useRouter();
-  const { id } = useLocalSearchParams(); // Get the paper ID from the URL
+  const { id, time } = useLocalSearchParams(); // Get the paper ID from the URL
   const paper = questionPapers[id];
   const questions = paper.questions; // Fetch the corresponding question paper
   const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(0);
 
   const handleSelect = (questionId, option) => {
     const question = questions.find((q) => q.id === questionId);
@@ -170,14 +118,27 @@ export default function ExamPage() {
   };
 
   const handleSubmit = () => {
+    setSubmitted(1);
     console.log("Submitted answers:", answers);
-    alert(`You successfully completed the exam!`);
-    router.push("/category");
+    router.push({
+      pathname: `/exam/results`,
+      params: { id, answers: JSON.stringify(answers) },
+    });
   };
+
+  useEffect(() => {
+    const examDuration = parseInt(time) * 60 * 1000;
+    const examTimer = setTimeout(handleSubmit, examDuration);
+
+    if (submitted == 1) {
+      console.log("Timer cleared");
+      clearTimeout(examTimer);
+    }
+  }, [submitted]);
 
   return (
     <SafeAreaProvider>
-      <Header displayExamInfo="Time" />
+      <Header displayExamInfo={time} />
       <View className="flex-1 pt-6">
         <ScrollView className="">
           <View className="mx-10 gap-10">

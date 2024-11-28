@@ -48,7 +48,7 @@ const subjects = [
 const Category = () => {
   const router = useRouter();
   return (
-    <View className="flex-1 h-screen">
+    <View className="flex-1">
       <Header
         displayExamInfo={null}
         displayTabTitle={"Subjects"}
@@ -57,7 +57,7 @@ const Category = () => {
         title=""
         image={""}
       />
-      <View className="">
+      <View className="flex-1">
         <ScrollView className="">
           <View className="border-[1px] border-[#c0dafc] gap-4 h-fit w-full  rounded-[25] p-6">
             {subjects.map((subject) => (
