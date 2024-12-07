@@ -12,6 +12,7 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
+import { useTimer } from "@/context/TimerContext";
 
 const Header = ({
   title,
@@ -32,6 +33,7 @@ const Header = ({
   const [totalSeconds, setTotalSeconds] = useState(
     parseInt(displayExamInfo) * 60
   );
+  const { timeRemaining, stopTimer } = useTimer();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -63,7 +65,10 @@ const Header = ({
         },
         {
           text: "Yes",
-          onPress: () => router.push("/category"),
+          onPress: () => {
+            stopTimer();
+            router.push("/category");
+          },
         },
       ],
       { cancelable: false } // Prevent closing the dialog by tapping outside (optional)

@@ -10,7 +10,7 @@ const questionPapers = {
     metadata: {
       quantity: 2,
       type: "Multiple Choice Questions",
-      duration: 15,
+      duration: 1,
       marking: "1 mark off",
     },
     questions: [
@@ -143,9 +143,7 @@ export default function PretestPage() {
 
         <TouchableOpacity
           className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
-          onPress={() =>
-            router.push(`/exam/${id}?time=${paperMeta.duration}&cancel=0`)
-          }
+          onPress={() => router.push(`/exam/${id}?time=${paperMeta.duration}`)}
         >
           <Text className="font-montBold text-white text-2xl">Start Test</Text>
         </TouchableOpacity>

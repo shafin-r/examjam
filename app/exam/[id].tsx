@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
+import { useTimer } from "@/context/TimerContext";
 
 // Example data
 const questionPapers = {
@@ -11,7 +12,7 @@ const questionPapers = {
     metadata: [
       {
         quantity: 2,
-        duration: 15,
+        duration: 1,
         type: "Multiple Choice Questions",
         marking: "1 mark off",
       },
@@ -31,6 +32,18 @@ const questionPapers = {
       },
       {
         id: 2,
+        question: "Solve for x: 2x = 10",
+        type: "single",
+        options: {
+          A: "5",
+          B: "6",
+          C: "4",
+          D: "10",
+        },
+        correctAnswer: "5",
+      },
+      {
+        id: 3,
         question: "Solve for x: 2x = 10",
         type: "single",
         options: {
@@ -84,11 +97,20 @@ const questionPapers = {
 
 export default function ExamPage() {
   const router = useRouter();
-  const { id, time } = useLocalSearchParams(); // Get the paper ID from the URL
+  const { id, time } = useLocalSearchParams();
+  const { timeRemaining: currentTime, setInitialTime, stopTimer } = useTimer(); // Get the paper ID from the URL
   const paper = questionPapers[id];
   const questions = paper.questions; // Fetch the corresponding question paper
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(parseInt(time) * 60 * 100);
+  let timer;
+
+  useEffect(() => {
+    if (timeRemaining) {
+      setInitialTime(Number(time)); // Set initial time from params
+    }
+  }, [timeRemaining, setInitialTime]);
 
   const handleSelect = (questionId, option) => {
     const question = questions.find((q) => q.id === questionId);
@@ -118,23 +140,29 @@ export default function ExamPage() {
   };
 
   const handleSubmit = () => {
+    stopTimer();
+    // Retrieve the current exam questions based on the `id`
+    const currentExam = questionPapers[id];
+
+    // Prepare the data to be passed to the results page
+    const examData = currentExam.questions.map((question) => ({
+      id: question.id,
+      questionText: question.question,
+      options: question.options,
+      correctAnswer: question.correctAnswer,
+    }));
+
+    // Include both the submitted answers and the options in the navigation
     setSubmitted(1);
-    console.log("Submitted answers:", answers);
     router.push({
       pathname: `/exam/results`,
-      params: { id, answers: JSON.stringify(answers) },
+      params: {
+        id,
+        answers: JSON.stringify(answers), // Submitted answers
+        examData: JSON.stringify(examData), // Questions and options
+      },
     });
   };
-
-  useEffect(() => {
-    const examDuration = parseInt(time) * 60 * 1000;
-    const examTimer = setTimeout(handleSubmit, examDuration);
-
-    if (submitted == 1) {
-      console.log("Timer cleared");
-      clearTimeout(examTimer);
-    }
-  }, [submitted]);
 
   return (
     <SafeAreaProvider>

@@ -3,6 +3,7 @@ import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import "../global.css";
 import { useEffect } from "react";
+import { TimerProvider } from "@/context/TimerContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,12 +39,14 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="exam/pretest" options={{ headerShown: false }} />
-      <Stack.Screen name="exam/[id]" options={{ headerShown: false }} />
-      <Stack.Screen name="exam/results" options={{ headerShown: false }} />
-    </Stack>
+    <TimerProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="exam/pretest" options={{ headerShown: false }} />
+        <Stack.Screen name="exam/[id]" options={{ headerShown: false }} />
+        <Stack.Screen name="exam/results" options={{ headerShown: false }} />
+      </Stack>
+    </TimerProvider>
   );
 }

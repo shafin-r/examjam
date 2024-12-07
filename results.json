@@ -1,0 +1,21 @@
+[
+  {
+    "correctAnswer": "180°",
+    "isCorrect": false,
+    "options": { "A": "180", "B": "90", "C": "60", "D": "45" },
+    "questionText": "What is the sum of angles in a triangle?",
+    "userAnswer": "90"
+  },
+  {
+    "correctAnswer": "Square",
+    "isCorrect": false,
+    "options": {
+      "A": "Square",
+      "B": "Rectangle",
+      "C": "Triangle",
+      "D": "Circle"
+    },
+    "questionText": "Name the shape with four equal sides.",
+    "userAnswer": "Circle"
+  }
+]

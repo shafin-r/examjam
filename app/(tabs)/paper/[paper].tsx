@@ -16,12 +16,12 @@ const questions = {
     { id: 2, title: "Geometry Fundamentals", rating: 9 },
   ],
   Biology: [
-    { id: 3, title: "Physics Introduction", rating: 9 },
-    { id: 4, title: "Chemistry Essentials", rating: 9 },
+    { id: 3, title: "The Human Mind", rating: 9 },
+    { id: 4, title: "Brain", rating: 9 },
   ],
   Physics: [
-    { id: 5, title: "World History", rating: 9 },
-    { id: 6, title: "Medieval History", rating: 9 },
+    { id: 5, title: "Physics Introduction", rating: 9 },
+    { id: 6, title: "Physics 101", rating: 9 },
   ],
 };
 
@@ -73,4 +73,13 @@ export default function PaperScreen() {
       </View>
     </View>
   );
+}
+
+{
+  /* <View className="">
+                <ActivityIndicator size="large" />
+                <Text className="font-montBold text-2xl text-center">
+                  Loading...
+                </Text>
+              </View> */
 }
