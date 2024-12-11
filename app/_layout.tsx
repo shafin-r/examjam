@@ -42,6 +42,11 @@ export default function RootLayout() {
     <TimerProvider>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="sections" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="exam/modal"
+          options={{ headerShown: false, presentation: "transparentModal" }}
+        />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="exam/pretest" options={{ headerShown: false }} />
         <Stack.Screen name="exam/[id]" options={{ headerShown: false }} />

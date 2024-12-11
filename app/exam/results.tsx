@@ -15,14 +15,6 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 const questionPapers = {
   1: {
     title: "Algebra Basics",
-    metadata: [
-      {
-        quantity: 2,
-        duration: 1,
-        type: "Multiple Choice Questions",
-        marking: "1 mark off",
-      },
-    ],
     questions: [
       {
         id: 1,
@@ -64,14 +56,6 @@ const questionPapers = {
   },
   2: {
     title: "Geometry Fundamentals",
-    metadata: [
-      {
-        quantity: 2,
-        duration: 15,
-        type: "Multiple Choice Questions",
-        marking: "1 mark off",
-      },
-    ],
     questions: [
       {
         id: 1,
@@ -132,9 +116,9 @@ const ResultsPage = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView className="mx-10 mt-10 h-full gap-10 flex-1">
-        <View>
+        <TouchableOpacity onPress={() => router.push("/category")}>
           <AntDesign name="arrowleft" size={30} color="black" />
-        </View>
+        </TouchableOpacity>
 
         <ScrollView className="">
           <Text className="font-montBold text-3xl text-[#113768] text-center mb-6">

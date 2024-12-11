@@ -1,9 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-const DestructibleAlert = ({ text }: { text: string }) => {
+const DestructibleAlert = ({
+  text,
+  extraStyles,
+}: {
+  text: string;
+  extraStyles: string;
+}) => {
   return (
-    <View style={styles.alert}>
+    <View style={styles.alert} className={extraStyles}>
       <Text style={styles.dialog}>{text}</Text>
     </View>
   );

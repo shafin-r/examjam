@@ -7,15 +7,12 @@ const Bookmark = () => {
   return (
     <View>
       <Header
-        displayExamInfo={null}
         displaySubject={null}
         displayTabTitle="Bookmarks"
         displayUser={false}
-        title=""
-        image={""}
       />
       <View className="mx-10">
-        <DestructibleAlert text="Page under work." />
+        <DestructibleAlert extraStyles="mt-10" text="Page under work." />
       </View>
     </View>
   );

@@ -48,7 +48,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   logo: {
     width: "100%",
-    height: 90,
+    height: 80,
   },
   login: {
     width: "100%",

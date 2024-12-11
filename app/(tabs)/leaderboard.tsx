@@ -3,12 +3,12 @@ import React from "react";
 import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
 
-const Profile = () => {
+const LeaderboardPage = () => {
   return (
     <View>
       <Header
         displaySubject={null}
-        displayTabTitle="My Profile"
+        displayTabTitle="Leaderboard"
         displayUser={false}
       />
       <View className="mx-10">
@@ -18,4 +18,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default LeaderboardPage;

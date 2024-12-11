@@ -7,32 +7,30 @@ import {
   Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
 import { useTimer } from "@/context/TimerContext";
 
+interface HeaderProps {
+  name?: string | undefined | null;
+  image?: any | undefined;
+  displayUser?: boolean;
+  displaySubject?: string | string[] | undefined | null;
+  displayTabTitle: string | undefined | null;
+  examDuration?: string | string[] | null;
+}
+
 const Header = ({
-  title,
+  name,
   image,
   displayUser,
   displaySubject,
   displayTabTitle,
-  displayExamInfo,
-}: {
-  title?: string | undefined;
-  image?: any | undefined;
-  displayUser?: boolean;
-  displaySubject?: null | string | string[] | undefined;
-  displayTabTitle?: string | undefined | null;
-  displayExamInfo?: string | null;
-}) => {
+  examDuration,
+}: HeaderProps) => {
   const router = useRouter();
-  const [totalSeconds, setTotalSeconds] = useState(
-    parseInt(displayExamInfo) * 60
-  );
+  const [totalSeconds, setTotalSeconds] = useState(parseInt(examDuration) * 60);
   const { timeRemaining, stopTimer } = useTimer();
 
   useEffect(() => {
@@ -80,12 +78,12 @@ const Header = ({
       {displayUser && (
         <View style={styles.profile}>
           <Image source={image} style={styles.profileImg} />
-          <Text style={styles.text}>Hello, {title}</Text>
+          <Text style={styles.text}>Hello, {name}</Text>
         </View>
       )}
       {displaySubject && (
         <View style={styles.profile}>
-          <TouchableOpacity onPress={() => router.push("/category")}>
+          <TouchableOpacity onPress={() => router.back()}>
             <AntDesign name="arrowleft" size={24} color="white" />
           </TouchableOpacity>
           <Text style={styles.text}>{displaySubject}</Text>
@@ -96,7 +94,7 @@ const Header = ({
           <Text style={styles.text}>{displayTabTitle}</Text>
         </View>
       )}
-      {displayExamInfo && (
+      {examDuration && (
         <View className="flex-row justify-between w-full items-center">
           <TouchableOpacity
             onPress={() => {
@@ -125,7 +123,9 @@ const Header = ({
               <Text className="font-montMedium text-sm">Secs</Text>
             </View>
           </View>
-          <Feather name="layers" size={30} color="white" />
+          <TouchableOpacity onPress={() => router.push("/exam/modal")}>
+            <Feather name="layers" size={30} color="white" />
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   profileImg: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 50,
   },
   profile: {

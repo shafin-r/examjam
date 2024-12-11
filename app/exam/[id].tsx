@@ -9,14 +9,6 @@ import { useTimer } from "@/context/TimerContext";
 const questionPapers = {
   1: {
     title: "Algebra Basics",
-    metadata: [
-      {
-        quantity: 2,
-        duration: 1,
-        type: "Multiple Choice Questions",
-        marking: "1 mark off",
-      },
-    ],
     questions: [
       {
         id: 1,
@@ -58,14 +50,6 @@ const questionPapers = {
   },
   2: {
     title: "Geometry Fundamentals",
-    metadata: [
-      {
-        quantity: 2,
-        duration: 15,
-        type: "Multiple Choice Questions",
-        marking: "1 mark off",
-      },
-    ],
     questions: [
       {
         id: 1,
@@ -102,8 +86,8 @@ export default function ExamPage() {
   const paper = questionPapers[id];
   const questions = paper.questions; // Fetch the corresponding question paper
   const [answers, setAnswers] = useState({});
-  const [submitted, setSubmitted] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(parseInt(time) * 60 * 100);
+
   let timer;
 
   useEffect(() => {
@@ -153,7 +137,6 @@ export default function ExamPage() {
     }));
 
     // Include both the submitted answers and the options in the navigation
-    setSubmitted(1);
     router.push({
       pathname: `/exam/results`,
       params: {
@@ -166,9 +149,9 @@ export default function ExamPage() {
 
   return (
     <SafeAreaProvider>
-      <Header displayExamInfo={time} />
+      <Header examDuration={time} />
       <View className="flex-1 pt-6">
-        <ScrollView className="">
+        <ScrollView>
           <View className="mx-10 gap-10">
             {questions.map((question) => (
               <View

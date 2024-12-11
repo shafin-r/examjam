@@ -35,8 +35,6 @@ export default function PaperScreen() {
       <Header
         displayTabTitle={null}
         displayUser={false}
-        title=""
-        image={""}
         displaySubject={paper}
       />
       <View className="mx-10 pt-10">

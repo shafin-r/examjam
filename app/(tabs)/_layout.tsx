@@ -87,6 +87,34 @@ const TabsLayout = () => {
           headerShown: false, // This excludes it from the tabs
         }}
       />
+      <Tabs.Screen
+        name="sections"
+        options={{
+          href: null,
+          headerShown: false, // This excludes it from the tabs
+        }}
+      />
+      <Tabs.Screen
+        name="leaderboard"
+        options={{
+          href: null,
+          headerShown: false, // This excludes it from the tabs
+        }}
+      />
+      <Tabs.Screen
+        name="performance"
+        options={{
+          href: null,
+          headerShown: false, // This excludes it from the tabs
+        }}
+      />
+      <Tabs.Screen
+        name="progress"
+        options={{
+          href: null,
+          headerShown: false, // This excludes it from the tabs
+        }}
+      />
     </Tabs>
   );
 };
