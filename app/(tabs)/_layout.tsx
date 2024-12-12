@@ -115,6 +115,13 @@ const TabsLayout = () => {
           headerShown: false, // This excludes it from the tabs
         }}
       />
+      <Tabs.Screen
+        name="live"
+        options={{
+          href: null,
+          headerShown: false, // This excludes it from the tabs
+        }}
+      />
     </Tabs>
   );
 };

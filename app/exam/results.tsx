@@ -120,114 +120,119 @@ const ResultsPage = () => {
           <AntDesign name="arrowleft" size={30} color="black" />
         </TouchableOpacity>
 
-        <ScrollView className="">
-          <Text className="font-montBold text-3xl text-[#113768] text-center mb-6">
-            {(score / questionPaper.questions.length) * 100 < 30
-              ? "Try harder!"
-              : (score / questionPaper.questions.length) * 100 < 70
-              ? "Getting Better"
-              : "You did great!"}
-          </Text>
-          <View className="h-[170] w-full border-2 rounded-[25] border-[#c1dcff] p-6 justify-center items-center gap-3">
-            <Text className="font-montMedium text-2xl border-2 border-white/0">
-              Accuracy:
+        <View className="flex-1">
+          <ScrollView className="">
+            <Text className="font-montBold text-3xl text-[#113768] text-center mb-6">
+              {(score / questionPaper.questions.length) * 100 < 30
+                ? "Try harder!"
+                : (score / questionPaper.questions.length) * 100 < 70
+                ? "Getting Better"
+                : "You did great!"}
             </Text>
-            <View className="flex-row items-center gap-3 ">
-              <MaterialIcons
-                name="my-location"
-                size={60}
-                color="#113768"
-                className=""
-              />
-              <Text className="font-montBold text-[64px] text-[#113768] ">
-                {(
-                  (score / questionPaper.questions.length) *
-                  100
-                ).toLocaleString("en-US", {
-                  maximumFractionDigits: 1,
-                  minimumFractionDigits: 1,
-                })}
-                %
+            <View className="h-[170] w-full border-2 rounded-[25] border-[#c1dcff] p-6 justify-center items-center gap-3">
+              <Text className="font-montMedium text-2xl border-2 border-white/0">
+                Accuracy:
               </Text>
+              <View className="flex-row items-center gap-3 ">
+                <MaterialIcons
+                  name="my-location"
+                  size={60}
+                  color="#113768"
+                  className=""
+                />
+                <Text className="font-montBold text-[64px] text-[#113768] ">
+                  {(
+                    (score / questionPaper.questions.length) *
+                    100
+                  ).toLocaleString("en-US", {
+                    maximumFractionDigits: 1,
+                    minimumFractionDigits: 1,
+                  })}
+                  %
+                </Text>
+              </View>
             </View>
-          </View>
-          <View className="mt-10">
-            <Text className="font-montBold text-3xl text-[#113768]">
-              Solutions
-            </Text>
-            <View className="gap-6 mt-6">
-              {results.map((result, idx) => (
-                <View
-                  key={idx}
-                  className="h-fit border-2 border-[#abd0ff] p-6 rounded-[20] gap-4"
-                >
-                  <View className="gap-2">
-                    <Text className="font-montMedium text-2xl">
-                      {idx + 1}. {result.questionText}
-                    </Text>
-                    <View className="flex-row justify-between border-2 border-white/0">
-                      <View></View>
-                      <View
-                        className={`px-4 rounded-xl border-2 border-white/0 ${
-                          result.userAnswer === null
-                            ? "bg-yellow-500"
-                            : result.isCorrect
-                            ? "bg-green-500"
-                            : "bg-red-500"
-                        }`}
-                      >
-                        <Text className="text-white font-montBold">
-                          {result.userAnswer === null
-                            ? "Skipped"
-                            : result.isCorrect
-                            ? "Correct"
-                            : "Incorrect"}
-                        </Text>
+            <View className="mt-10">
+              <Text className="font-montBold text-3xl text-[#113768]">
+                Solutions
+              </Text>
+              <View className="gap-6 mt-6">
+                {results.map((result, idx) => (
+                  <View
+                    key={idx}
+                    className="h-fit border-2 border-[#abd0ff] p-6 rounded-[20] gap-4"
+                  >
+                    <View className="gap-2">
+                      <Text className="font-montMedium text-2xl">
+                        {idx + 1}. {result.questionText}
+                      </Text>
+                      <View className="flex-row justify-between border-2 border-white/0">
+                        <View></View>
+                        <View
+                          className={`px-4 rounded-xl border-2 border-white/0 ${
+                            result.userAnswer === null
+                              ? "bg-yellow-500"
+                              : result.isCorrect
+                              ? "bg-green-500"
+                              : "bg-red-500"
+                          }`}
+                        >
+                          <Text className="text-white font-montBold">
+                            {result.userAnswer === null
+                              ? "Skipped"
+                              : result.isCorrect
+                              ? "Correct"
+                              : "Incorrect"}
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                  <View>
-                    {Object.entries(result.options).map(([key, option]) => (
-                      <View
-                        key={key}
-                        className="flex-row border-2 border-white/0 items-center gap-4"
-                      >
-                        <Text
-                          className={`text-md rounded-full px-1 items-center justify-center border-[1px] &
+                    <View>
+                      {Object.entries(result.options).map(([key, option]) => (
+                        <View
+                          key={key}
+                          className="flex-row border-2 border-white/0 items-center gap-4"
+                        >
+                          <Text
+                            className={`text-md rounded-full px-1 items-center justify-center border-[1px] &
                           ${
                             result.userAnswer === option
                               ? "bg-[#113768] text-white"
                               : ""
                           }
                         }`}
-                        >
-                          {key}
-                        </Text>
-                        <Text className="text-xl font-montRegular">
-                          {option}
+                          >
+                            {key}
+                          </Text>
+                          <Text className="text-xl font-montRegular">
+                            {option}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                    <View
+                      className="w-full"
+                      style={styles.solutionBorder}
+                    ></View>
+                    <View>
+                      <Text className="text-2xl font-montSemiBold text-[#000]/40">
+                        Solution:
+                      </Text>
+                      <View>
+                        <Text className="font-montRegular text-xl leading-10">
+                          Let present age of A and B be 4x and 5x 18 years ago
+                          their ages 4x - 18/5x - 18 = 11/16 Or, 64x - 288 = 55x
+                          - 198 Or, 64x - 55x = -198 + 288 Or, 9x = 90 Or, x =
+                          90/9 = 10 Sum of the present ages = 40 + 50 = 90 years
                         </Text>
                       </View>
-                    ))}
-                  </View>
-                  <View className="w-full" style={styles.solutionBorder}></View>
-                  <View>
-                    <Text className="text-2xl font-montSemiBold text-[#000]/40">
-                      Solution:
-                    </Text>
-                    <View>
-                      <Text className="font-montRegular text-xl leading-10">
-                        Let present age of A and B be 4x and 5x 18 years ago
-                        their ages 4x - 18/5x - 18 = 11/16 Or, 64x - 288 = 55x -
-                        198 Or, 64x - 55x = -198 + 288 Or, 9x = 90 Or, x = 90/9
-                        = 10 Sum of the present ages = 40 + 50 = 90 years
-                      </Text>
                     </View>
                   </View>
-                </View>
-              ))}
+                ))}
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
 
         {/* <FlatList
         data={results}

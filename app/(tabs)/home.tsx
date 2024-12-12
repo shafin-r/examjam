@@ -9,6 +9,7 @@ import { Image } from "expo-image";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ProgressBar from "@/components/ProgressBar";
 import DailyQuiz from "@/components/DailyQuiz";
+import LiveCalendar from "@/components/LiveCalendar";
 
 const Home = () => {
   const profileImg = require("@/assets/images/static/pfp.jpg");
@@ -189,30 +190,13 @@ const Home = () => {
               <Text className="text-3xl font-montBold text-[#113768]">
                 Daily Quiz
               </Text>
-              {/* <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
-                <View className="border-[1px] border-[#8abdff] rounded-[25] p-8 gap-6">
-                  <Text className="text-2xl font-montMedium pb-4">
-                    What is the gravitational force of Earth?
-                  </Text>
-                </View>
-                <TouchableOpacity className="flex-row border-2 border-white/0 items-center gap-4">
-                  <Text
-                    className={`text-md rounded-full px-1 items-center justify-center border-[1px] 
-                          bg-[#113768] text-white`}
-                  >
-                    A
-                  </Text>
-                  <Text className="text-xl font-montRegular">5</Text>
-                </TouchableOpacity>
-              </View> */}
               <DailyQuiz />
             </View>
-            <View>
-              <View className="flex-row items-center justify-between">
-                <Text className="text-3xl font-montBold text-[#113768]">
-                  Live Exams
-                </Text>
-              </View>
+            <View className="gap-6">
+              <Text className="text-3xl font-montBold text-[#113768]">
+                Live Exams
+              </Text>
+              <LiveCalendar />
             </View>
             <View>
               <View className="">
