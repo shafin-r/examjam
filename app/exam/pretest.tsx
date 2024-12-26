@@ -11,7 +11,7 @@ const questionData = {
     metadata: {
       quantity: 2,
       type: "Multiple Choice Questions",
-      duration: 1,
+      duration: 60,
       marking: "1 mark off",
     },
   },

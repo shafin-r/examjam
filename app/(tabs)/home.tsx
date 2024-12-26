@@ -24,6 +24,81 @@ const Home = () => {
     { label: "Physics", progress: 25 },
     { label: "Chemistry", progress: 57 },
   ];
+
+  const boardData = [
+    {
+      id: "1",
+      name: "Shafin",
+      points: 378,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "2",
+      name: "Alice",
+      points: 350,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "3",
+      name: "Bob",
+      points: 387,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "4",
+      name: "Charlie",
+      points: 367,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "5",
+      name: "Derek",
+      points: 396,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "6",
+      name: "Earl",
+      points: 289,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "7",
+      name: "Frazier",
+      points: 345,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "8",
+      name: "Gareth",
+      points: 356,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "9",
+      name: "Hamilton",
+      points: 245,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+    {
+      id: "10",
+      name: "Isaiah",
+      points: 221,
+      image: require("@/assets/images/static/pfp.jpg"),
+    },
+  ];
+
+  const getTopThree = (boardData) => {
+    const sortedData = boardData.slice().sort((a, b) => b.points - a.points);
+
+    const topThree = sortedData.slice(0, 3).map((player, index) => ({
+      ...player,
+      rank: index + 1,
+      height: index === 0 ? 250 : index === 1 ? 200 : 170,
+    }));
+
+    return topThree;
+  };
   return (
     <SafeAreaProvider>
       <Header
@@ -104,45 +179,28 @@ const Home = () => {
                   style={{ borderWidth: 1 }}
                 ></View>
                 <View className="gap-4">
-                  <View className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center">
-                    <View className="flex-row gap-3 items-center">
-                      <Text className="font-montMedium text-xl">1</Text>
-                      <Image
-                        source={require("@/assets/images/static/pfp.jpg")}
-                        style={{ width: 25, height: 25, borderRadius: 25 }}
-                      />
-                      <Text className="font-montMedium text-lg">Shafin</Text>
+                  {getTopThree(boardData).map((student, idx) => (
+                    <View
+                      key={idx}
+                      className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
+                    >
+                      <View className="flex-row gap-3 items-center">
+                        <Text className="font-montMedium text-xl">
+                          {student.rank}
+                        </Text>
+                        <Image
+                          source={student.image}
+                          style={{ width: 25, height: 25, borderRadius: 25 }}
+                        />
+                        <Text className="font-montMedium text-lg">
+                          {student.name}
+                        </Text>
+                      </View>
+                      <Text className="font-montMedium text-[#000]/40">
+                        {student.points}pt
+                      </Text>
                     </View>
-                    <Text className="font-montMedium text-[#000]/40">
-                      320pt
-                    </Text>
-                  </View>
-                  <View className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center">
-                    <View className="flex-row gap-3 items-center">
-                      <Text className="font-montMedium text-xl">2</Text>
-                      <Image
-                        source={require("@/assets/images/static/pfp.jpg")}
-                        style={{ width: 25, height: 25, borderRadius: 25 }}
-                      />
-                      <Text className="font-montMedium text-lg">Jamie</Text>
-                    </View>
-                    <Text className="font-montMedium text-[#000]/40">
-                      320pt
-                    </Text>
-                  </View>
-                  <View className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center">
-                    <View className="flex-row gap-3 items-center">
-                      <Text className="font-montMedium text-xl">3</Text>
-                      <Image
-                        source={require("@/assets/images/static/pfp.jpg")}
-                        style={{ width: 25, height: 25, borderRadius: 25 }}
-                      />
-                      <Text className="font-montMedium text-lg">Oliver</Text>
-                    </View>
-                    <Text className="font-montMedium text-[#000]/40">
-                      320pt
-                    </Text>
-                  </View>
+                  ))}
                 </View>
               </View>
             </View>

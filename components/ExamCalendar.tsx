@@ -12,37 +12,12 @@ const getMonthDays = (year, month) => {
   return calendarDays;
 };
 
-const isExamDay = (year, month, day, examDates) => {
-  return examDates.some(({ start, end }) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-
-    // Compare year, month, and day separately
-    const isAfterStart =
-      year > startDate.getFullYear() ||
-      (year === startDate.getFullYear() && month > startDate.getMonth()) ||
-      (year === startDate.getFullYear() &&
-        month === startDate.getMonth() &&
-        day >= startDate.getDate());
-
-    const isBeforeEnd =
-      year < endDate.getFullYear() ||
-      (year === endDate.getFullYear() && month < endDate.getMonth()) ||
-      (year === endDate.getFullYear() &&
-        month === endDate.getMonth() &&
-        day <= endDate.getDate());
-
-    let examDayTrue = isAfterStart && isBeforeEnd;
-    return examDayTrue;
-  });
-};
-
 const ExamCalendar = ({ year, month, examDates }) => {
   const days = getMonthDays(year, month);
+  const [upcomingExams, setUpcomingExams] = useState([]);
+  const [nextExam, setNextExam] = useState(null);
 
-  const [upcomingExam, setUpcomingExam] = useState(null);
-
-  const findUpcomingExam = () => {
+  const findNextExam = () => {
     const today = new Date().toISOString().split("T")[0];
     let closestExam = null;
 
@@ -52,7 +27,13 @@ const ExamCalendar = ({ year, month, examDates }) => {
         break;
       }
     }
-    setUpcomingExam(closestExam);
+    setNextExam(closestExam);
+  };
+
+  const findUpcomingExams = () => {
+    const today = new Date().toISOString().split("T")[0];
+    const filteredExams = examDates.filter(({ end }) => today <= end);
+    setUpcomingExams(filteredExams);
   };
 
   const getGridPosition = (date) => {
@@ -61,48 +42,51 @@ const ExamCalendar = ({ year, month, examDates }) => {
     return firstDay + Number(day) - 1; // Day index in the grid
   };
 
-  const renderHighlight = () => {
-    if (!upcomingExam) return null;
+  const renderHighlights = () => {
+    if (!upcomingExams.length) return null;
 
-    const startPosition = getGridPosition(upcomingExam.start);
-    const endPosition = getGridPosition(upcomingExam.end);
+    return upcomingExams.map((exam, index) => {
+      const startPosition = getGridPosition(exam.start);
+      const endPosition = getGridPosition(exam.end);
 
-    const startRow = Math.floor(startPosition / 7);
-    const startCol = startPosition % 7;
+      const startRow = Math.floor(startPosition / 7);
+      const startCol = startPosition % 7;
 
-    const endRow = Math.floor(endPosition / 7);
-    const endCol = endPosition % 7;
+      const endRow = Math.floor(endPosition / 7);
+      const endCol = endPosition % 7;
 
-    const rows = [];
+      const rows = [];
 
-    for (let row = startRow; row <= endRow; row++) {
-      const isFirstRow = row === startRow;
-      const isLastRow = row === endRow;
+      for (let row = startRow; row <= endRow; row++) {
+        const isFirstRow = row === startRow;
+        const isLastRow = row === endRow;
 
-      const left = isFirstRow ? (startCol / 7) * 100 : 0;
-      const right = isLastRow ? ((6 - endCol) / 7) * 100 : 0;
+        const left = isFirstRow ? (startCol / 7) * 100 : 0;
+        const right = isLastRow ? ((6 - endCol) / 7) * 100 : 0;
 
-      rows.push(
-        <View
-          key={row}
-          style={[
-            styles.highlight,
-            {
-              top: `${(row * 120) / 6}%`,
-              left: `${left}%`,
-              right: `${right + 2}%`,
-            },
-          ]}
-        />
-      );
-    }
+        rows.push(
+          <View
+            key={`${index}-${row}`}
+            style={[
+              styles.highlight,
+              {
+                top: `${(row * 120) / 6}%`,
+                left: `${left}%`,
+                right: `${right + 2}%`,
+              },
+            ]}
+          />
+        );
+      }
 
-    return rows;
+      return rows;
+    });
   };
 
   useEffect(() => {
-    findUpcomingExam();
-  }, []);
+    findUpcomingExams();
+    findNextExam();
+  }, [examDates]);
 
   const months = [
     "Jan",
@@ -126,7 +110,7 @@ const ExamCalendar = ({ year, month, examDates }) => {
           <Text className="font-montMedium text-2xl">{months[month]} </Text>
           <Text className="font-montRegular text-black">
             <Text className=" text-[#000]/20">Upcoming Live Test: </Text>(
-            {upcomingExam?.examName})
+            {nextExam?.examName})
           </Text>
         </View>
         <View
@@ -149,7 +133,7 @@ const ExamCalendar = ({ year, month, examDates }) => {
 
       {/* Calendar Days */}
       <View style={styles.daysGrid} className="px-3">
-        {renderHighlight()}
+        {renderHighlights()}
         {days.map((day, index) => {
           const startDates = examDates.filter(({ start }) => {
             const startDate = new Date(start);
@@ -172,9 +156,9 @@ const ExamCalendar = ({ year, month, examDates }) => {
           // Determine the background color based on whether this day is a start or end date
           const backgroundColor =
             startDates.length > 0
-              ? "red" // Highlight start dates
+              ? "#EA0400" // Highlight start dates
               : endDates.length > 0
-              ? "red" // Highlight end dates
+              ? "#EA0400" // Highlight end dates
               : undefined; // No style otherwise
 
           return (

@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { BackHandler } from "react-native";
+import CustomBackHandler from "@/components/CustomBackHandler";
 
 // Question papers data
 const questionPapers = {
@@ -86,7 +88,7 @@ const questionPapers = {
 };
 
 const ResultsPage = () => {
-  const { id, answers, examData } = useLocalSearchParams();
+  const { id, answers } = useLocalSearchParams();
 
   // Parse submitted answers
   const submittedAnswers = JSON.parse(answers); // e.g., { "1": ["B"], "2": ["A"] }
@@ -264,6 +266,7 @@ const ResultsPage = () => {
       >
         <Text className="font-montBold text-white text-2xl">Next</Text>
       </TouchableOpacity>
+      <CustomBackHandler />
     </SafeAreaProvider>
   );
 };

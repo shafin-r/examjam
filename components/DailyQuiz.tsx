@@ -173,9 +173,6 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   questionContainer: {
-    borderWidth: 1,
-    borderColor: "#8abdff",
-    borderRadius: 25,
     padding: 16,
     marginBottom: 20,
   },
@@ -203,10 +200,12 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 18,
+    fontFamily: "Montserrat-Regular",
   },
   feedbackText: {
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 20,
+    fontFamily: "Montserrat-Regular",
   },
 });
