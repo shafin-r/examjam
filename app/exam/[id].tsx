@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
 import { useTimer } from "@/context/TimerContext";
+import CustomBackHandler from "@/components/CustomBackHandler";
 
 // Example data
 const questionPapers = {
@@ -74,6 +75,129 @@ const questionPapers = {
           D: "circle",
         },
         correctAnswer: "Square",
+      },
+    ],
+  },
+  3: {
+    title: "Physics Basics",
+    questions: [
+      {
+        id: 1,
+        question: "What is the SI unit of force?",
+        type: "single",
+        options: {
+          A: "Newton",
+          B: "Joule",
+          C: "Pascal",
+          D: "Watt",
+        },
+        correctAnswer: "Newton",
+      },
+      {
+        id: 2,
+        question: "What is the speed of light in vacuum?",
+        type: "single",
+        options: {
+          A: "300,000 km/s",
+          B: "150,000 km/s",
+          C: "3,000 km/s",
+          D: "30,000 km/s",
+        },
+        correctAnswer: "300,000 km/s",
+      },
+      {
+        id: 3,
+        question: "What is the formula for calculating force?",
+        type: "single",
+        options: {
+          A: "F = m/a",
+          B: "F = ma",
+          C: "F = m + a",
+          D: "F = m - a",
+        },
+        correctAnswer: "F = ma",
+      },
+    ],
+  },
+  4: {
+    title: "History Essentials",
+    questions: [
+      {
+        id: 1,
+        question: "Who was the first President of the United States?",
+        type: "single",
+        options: {
+          A: "Thomas Jefferson",
+          B: "George Washington",
+          C: "Abraham Lincoln",
+          D: "John Adams",
+        },
+        correctAnswer: "George Washington",
+      },
+      {
+        id: 2,
+        question: "In which year did World War II end?",
+        type: "single",
+        options: {
+          A: "1945",
+          B: "1939",
+          C: "1918",
+          D: "1950",
+        },
+        correctAnswer: "1945",
+      },
+      {
+        id: 3,
+        question: "Who discovered America in 1492?",
+        type: "single",
+        options: {
+          A: "Christopher Columbus",
+          B: "Ferdinand Magellan",
+          C: "Vasco da Gama",
+          D: "Amerigo Vespucci",
+        },
+        correctAnswer: "Christopher Columbus",
+      },
+    ],
+  },
+  5: {
+    title: "Math Advanced",
+    questions: [
+      {
+        id: 1,
+        question: "What is the derivative of x²?",
+        type: "single",
+        options: {
+          A: "2x",
+          B: "x",
+          C: "x²",
+          D: "1",
+        },
+        correctAnswer: "2x",
+      },
+      {
+        id: 2,
+        question: "What is the integral of 1/x dx?",
+        type: "single",
+        options: {
+          A: "ln(x) + C",
+          B: "x²/2 + C",
+          C: "1/x² + C",
+          D: "C/x",
+        },
+        correctAnswer: "ln(x) + C",
+      },
+      {
+        id: 3,
+        question: "What is the value of π (pi) to 2 decimal places?",
+        type: "single",
+        options: {
+          A: "3.14",
+          B: "3.15",
+          C: "3.13",
+          D: "3.16",
+        },
+        correctAnswer: "3.14",
       },
     ],
   },
@@ -191,6 +315,7 @@ export default function ExamPage() {
           <Text className="font-montBold text-white text-2xl">Submit</Text>
         </TouchableOpacity>
       </View>
+      <CustomBackHandler />
     </SafeAreaProvider>
   );
 }

@@ -17,7 +17,7 @@ const LiveExamPage = () => {
     // API endpoint for when the user refreshes the page
     setExamDates([
       { start: "2024-12-23", end: "2024-12-26", examName: "Math" },
-      { start: "2024-12-27", end: "2024-12-31", examName: "Science" },
+      { start: "2024-12-28", end: "2024-12-31", examName: "Science" },
     ]);
     setComponentKey((prevKey) => prevKey + 1);
     setTimeout(() => {

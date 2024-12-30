@@ -24,6 +24,33 @@ const questionData = {
       marking: "1 mark off",
     },
   },
+  3: {
+    title: "Physics Basics",
+    metadata: {
+      quantity: 4,
+      type: "One word question",
+      duration: 10,
+      marking: "1 mark off",
+    },
+  },
+  4: {
+    title: "History Essentials",
+    metadata: {
+      quantity: 4,
+      type: "One word question",
+      duration: 10,
+      marking: "1 mark off",
+    },
+  },
+  5: {
+    title: "Math Advanced",
+    metadata: {
+      quantity: 4,
+      type: "One word question",
+      duration: 10,
+      marking: "1 mark off",
+    },
+  },
 };
 
 export default function PretestPage() {

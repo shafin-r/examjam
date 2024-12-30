@@ -14,14 +14,11 @@ const questions = {
   Maths: [
     { id: 1, title: "Algebra Basics", rating: 9 },
     { id: 2, title: "Geometry Fundamentals", rating: 9 },
-  ],
-  Biology: [
-    { id: 3, title: "The Human Mind", rating: 9 },
-    { id: 4, title: "Brain", rating: 9 },
+    { id: 5, title: "Math Advanced", rating: 9 },
   ],
   Physics: [
-    { id: 5, title: "Physics Introduction", rating: 9 },
-    { id: 6, title: "Physics 101", rating: 9 },
+    { id: 3, title: "Physics Basics", rating: 9 },
+    { id: 4, title: "History Essentials", rating: 9 },
   ],
 };
 

@@ -22,8 +22,13 @@ const ExamCalendar = ({ year, month, examDates }) => {
     let closestExam = null;
 
     for (let { start, end, examName } of examDates) {
-      if (today <= end) {
-        closestExam = { start, end, examName };
+      if (today >= start && today <= end) {
+        // If today is within the exam's date range
+        closestExam = { start, end, examName, status: "Current" };
+        break;
+      } else if (today < start) {
+        // If the exam is in the future
+        closestExam = { start, end, examName, status: "Upcoming" };
         break;
       }
     }
@@ -42,10 +47,57 @@ const ExamCalendar = ({ year, month, examDates }) => {
     return firstDay + Number(day) - 1; // Day index in the grid
   };
 
+  // const renderHighlights = () => {
+  //   if (!upcomingExams.length) return null;
+
+  //   return upcomingExams.map((exam, index) => {
+  //     const startPosition = getGridPosition(exam.start);
+  //     const endPosition = getGridPosition(exam.end);
+
+  //     const startRow = Math.floor(startPosition / 7);
+  //     const startCol = startPosition % 7;
+
+  //     const endRow = Math.floor(endPosition / 7);
+  //     const endCol = endPosition % 7;
+
+  //     const rows = [];
+
+  //     for (let row = startRow; row <= endRow; row++) {
+  //       const isFirstRow = row === startRow;
+  //       const isLastRow = row === endRow;
+
+  //       const left = isFirstRow ? (startCol / 7) * 100 : 0;
+  //       const right = isLastRow ? ((6 - endCol) / 7) * 100 : 0;
+
+  //       rows.push(
+  //         <View
+  //           key={${index}-${row}}
+  //           style={[
+  //             styles.highlight,
+  //             {
+  //               top: ${(row * 120) / 6}%,
+  //               left: ${left}%,
+  //               right: ${right + 2}%,
+  //             },
+  //           ]}
+  //         />
+  //       );
+  //     }
+
+  //     return rows;
+  //   });
+  // };
+
   const renderHighlights = () => {
     if (!upcomingExams.length) return null;
 
-    return upcomingExams.map((exam, index) => {
+    // Filter only current and upcoming exams
+    const today = new Date().toISOString().split("T")[0];
+    const filteredExams = upcomingExams.filter(
+      ({ start, end }) => today <= end // Include only current or upcoming exams
+    );
+
+    return filteredExams.map((exam, index) => {
       const startPosition = getGridPosition(exam.start);
       const endPosition = getGridPosition(exam.end);
 
@@ -109,8 +161,12 @@ const ExamCalendar = ({ year, month, examDates }) => {
         <View className="flex-row border-2 border-white/0 items-center justify-between">
           <Text className="font-montMedium text-2xl">{months[month]} </Text>
           <Text className="font-montRegular text-black">
-            <Text className=" text-[#000]/20">Upcoming Live Test: </Text>(
-            {nextExam?.examName})
+            <Text className=" text-[#000]/20">
+              {nextExam?.status === "Current"
+                ? "Current Live Test: "
+                : "Upcoming Live Test: "}
+            </Text>
+            ({nextExam?.examName})
           </Text>
         </View>
         <View
@@ -134,7 +190,8 @@ const ExamCalendar = ({ year, month, examDates }) => {
       {/* Calendar Days */}
       <View style={styles.daysGrid} className="px-3">
         {renderHighlights()}
-        {days.map((day, index) => {
+        {/* Renders highlights for all tests in the month */}
+        {/* {days.map((day, index) => {
           const startDates = examDates.filter(({ start }) => {
             const startDate = new Date(start);
             return (
@@ -174,6 +231,72 @@ const ExamCalendar = ({ year, month, examDates }) => {
                   styles.dayText,
                   (startDates.length > 0 || endDates.length > 0) &&
                     styles.examDayText, // Apply text styling for both start and end dates
+                ]}
+              >
+                {day || ""}
+              </Text>
+            </TouchableOpacity>
+          );
+        })} */}
+        {/* Renders highlights for upcoming and current live tests */}
+        {days.map((day, index) => {
+          // Get today's date
+          const today = new Date();
+          const isToday =
+            today.getFullYear() === year &&
+            today.getMonth() === month &&
+            today.getDate() === day;
+
+          // Filter out past exams (where today > end date)
+          const filteredExamDates = examDates.filter(({ end }) => {
+            const endDate = new Date(end);
+            return today <= endDate;
+          });
+
+          // Find start dates for filtered exams
+          const startDates = filteredExamDates.filter(({ start }) => {
+            const startDate = new Date(start);
+            return (
+              startDate.getFullYear() === year &&
+              startDate.getMonth() === month &&
+              startDate.getDate() === day
+            );
+          });
+
+          // Find end dates for filtered exams
+          const endDates = filteredExamDates.filter(({ end }) => {
+            const endDate = new Date(end);
+            return (
+              endDate.getFullYear() === year &&
+              endDate.getMonth() === month &&
+              endDate.getDate() === day
+            );
+          });
+
+          // Determine the background color for the day
+          const backgroundColor = isToday
+            ? "#113768" // Highlight the current date
+            : startDates.length > 0 || endDates.length > 0
+            ? "#EA0400" // Highlight exam start/end dates
+            : undefined;
+
+          // Determine the text color for the day
+          const textColor = isToday ? "#fff" : "#000";
+
+          return (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.day,
+                backgroundColor && { backgroundColor }, // Apply the determined background color
+              ]}
+            >
+              <Text
+                style={[
+                  styles.dayText,
+                  { color: textColor }, // Apply the determined text color
+                  (startDates.length > 0 || endDates.length > 0) &&
+                    styles.examDayText, // Apply text styling for start and end dates
                 ]}
               >
                 {day || ""}

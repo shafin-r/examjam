@@ -122,7 +122,7 @@ const Home = () => {
               </View>
               <View className="gap-4 pt-7">
                 <View className="flex-row justify-between ">
-                  <View className="justify-center items-center border-2 border-[#c5dbf8] p-10 w-[48%] rounded-[25]">
+                  <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
                     <Image
                       source={require("@/assets/images/icons/topic-test.png")}
                       style={{ width: 78, height: 78 }}
@@ -130,8 +130,8 @@ const Home = () => {
                     <Text className="text-lg font-montMedium text-[#113768]">
                       Topic Test
                     </Text>
-                  </View>
-                  <View className="justify-center items-center border-2 border-[#c5dbf8] p-10 w-[48%] rounded-[25]">
+                  </TouchableOpacity>
+                  <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
                     <Image
                       source={require("@/assets/images/icons/mock-test.png")}
                       style={{ width: 78, height: 78 }}
@@ -139,10 +139,10 @@ const Home = () => {
                     <Text className="text-lg font-montMedium text-[#113768]">
                       Mock Test
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
                 <View className="flex-row justify-between ">
-                  <View className="justify-center items-center border-2 border-[#c5dbf8] p-10 w-[48%] rounded-[25]">
+                  <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
                     <Image
                       source={require("@/assets/images/icons/past-paper.png")}
                       style={{ width: 70, height: 70 }}
@@ -150,8 +150,11 @@ const Home = () => {
                     <Text className="text-lg font-montMedium text-[#113768]">
                       Past Papers
                     </Text>
-                  </View>
-                  <View className="justify-center items-center border-2 border-[#c5dbf8] p-10 w-[48%] rounded-[25]">
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => router.push("/category")}
+                    className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]"
+                  >
                     <Image
                       source={require("@/assets/images/icons/subject-test.png")}
                       style={{ width: 78, height: 78 }}
@@ -159,7 +162,7 @@ const Home = () => {
                     <Text className="text-lg font-montMedium text-[#113768]">
                       Subject Test
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
