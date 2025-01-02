@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   dialog: {
-    fontSize: 20,
+    fontSize: 17,
     lineHeight: 28,
     fontFamily: "Montserrat-Bold",
     textAlign: "center",

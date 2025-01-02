@@ -6,8 +6,9 @@ import ExamCalendar from "@/components/ExamCalendar";
 const LiveExamPage = () => {
   // When the component is initially mounted, the first API call will be from here to instantiate the calendar
   const [examDates, setExamDates] = useState([
-    { start: "2024-12-13", end: "2024-12-15", examName: "Math" },
-    { start: "2024-12-23", end: "2024-12-27", examName: "Science" },
+    { start: "2025-01-02", end: "2025-01-04", examName: "Math" },
+    { start: "2025-01-06", end: "2025-01-08", examName: "Science" },
+    { start: "2025-01-16", end: "2025-01-22", examName: "Algebra" },
   ]);
   const [refreshing, setRefreshing] = useState(false);
   const [componentKey, setComponentKey] = useState(0);
@@ -16,8 +17,9 @@ const LiveExamPage = () => {
     setRefreshing(true);
     // API endpoint for when the user refreshes the page
     setExamDates([
-      { start: "2024-12-23", end: "2024-12-26", examName: "Math" },
-      { start: "2024-12-28", end: "2024-12-31", examName: "Science" },
+      { start: "2025-01-02", end: "2025-01-04", examName: "Math" },
+      { start: "2025-01-06", end: "2025-01-08", examName: "Science" },
+      { start: "2025-01-16", end: "2025-01-22", examName: "Algebra" },
     ]);
     setComponentKey((prevKey) => prevKey + 1);
     setTimeout(() => {
@@ -40,8 +42,8 @@ const LiveExamPage = () => {
       >
         <ExamCalendar
           key={componentKey}
-          year={2024}
-          month={11}
+          year={2025}
+          month={0}
           examDates={examDates}
         />
       </ScrollView>

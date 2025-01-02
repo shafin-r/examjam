@@ -10,6 +10,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import ProgressBar from "@/components/ProgressBar";
 import DailyQuiz from "@/components/DailyQuiz";
 import LiveCalendar from "@/components/LiveCalendar";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const Home = () => {
   const profileImg = require("@/assets/images/static/pfp.jpg");
@@ -100,177 +101,181 @@ const Home = () => {
     return topThree;
   };
   return (
-    <SafeAreaProvider>
-      <Header
-        displayTabTitle={null}
-        displayUser
-        name="Shafin"
-        image={profileImg}
-      />
-      <ScrollView className="pt-10">
-        <View className="mx-10">
-          <SlidingGallery />
-          <View className="pt-10 gap-10">
-            <View className="">
-              <View className="flex-row items-center justify-between">
-                <Text className="text-3xl font-montBold text-[#113768]">
-                  Categories
-                </Text>
-                <TouchableOpacity onPress={() => router.push("/sections")}>
-                  <AntDesign name="arrowright" size={24} color="#113768" />
-                </TouchableOpacity>
-              </View>
-              <View className="gap-4 pt-7">
-                <View className="flex-row justify-between ">
-                  <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
-                    <Image
-                      source={require("@/assets/images/icons/topic-test.png")}
-                      style={{ width: 78, height: 78 }}
-                    />
-                    <Text className="text-lg font-montMedium text-[#113768]">
-                      Topic Test
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
-                    <Image
-                      source={require("@/assets/images/icons/mock-test.png")}
-                      style={{ width: 78, height: 78 }}
-                    />
-                    <Text className="text-lg font-montMedium text-[#113768]">
-                      Mock Test
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View className="flex-row justify-between ">
-                  <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
-                    <Image
-                      source={require("@/assets/images/icons/past-paper.png")}
-                      style={{ width: 70, height: 70 }}
-                    />
-                    <Text className="text-lg font-montMedium text-[#113768]">
-                      Past Papers
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => router.push("/category")}
-                    className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]"
-                  >
-                    <Image
-                      source={require("@/assets/images/icons/subject-test.png")}
-                      style={{ width: 78, height: 78 }}
-                    />
-                    <Text className="text-lg font-montMedium text-[#113768]">
-                      Subject Test
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-            <View className="gap-6">
-              <Text className="text-3xl font-montBold text-[#113768]">
-                Leaderboard
-              </Text>
-              <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-5">
+    <BackgroundWrapper>
+      <SafeAreaProvider>
+        <Header
+          displayTabTitle={null}
+          displayUser
+          name="Shafin"
+          image={profileImg}
+        />
+        <ScrollView className="pt-10">
+          <View className="mx-10">
+            <SlidingGallery />
+            <View className="pt-10 gap-10">
+              <View className="">
                 <View className="flex-row items-center justify-between">
-                  <Text className="text-2xl font-montMedium">Top 3</Text>
-                  <TouchableOpacity onPress={() => router.push("/leaderboard")}>
+                  <Text className="text-3xl font-montBold text-[#113768]">
+                    Categories
+                  </Text>
+                  <TouchableOpacity onPress={() => router.push("/sections")}>
                     <AntDesign name="arrowright" size={24} color="#113768" />
                   </TouchableOpacity>
                 </View>
-                <View
-                  className="w-full border-[#c5dbf8]"
-                  style={{ borderWidth: 1 }}
-                ></View>
-                <View className="gap-4">
-                  {getTopThree(boardData).map((student, idx) => (
-                    <View
-                      key={idx}
-                      className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
+                <View className="gap-4 pt-7">
+                  <View className="flex-row justify-between ">
+                    <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                      <Image
+                        source={require("@/assets/images/icons/topic-test.png")}
+                        style={{ width: 78, height: 78 }}
+                      />
+                      <Text className="text-lg font-montMedium text-[#113768]">
+                        Topic Test
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                      <Image
+                        source={require("@/assets/images/icons/mock-test.png")}
+                        style={{ width: 78, height: 78 }}
+                      />
+                      <Text className="text-lg font-montMedium text-[#113768]">
+                        Mock Test
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View className="flex-row justify-between ">
+                    <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                      <Image
+                        source={require("@/assets/images/icons/past-paper.png")}
+                        style={{ width: 70, height: 70 }}
+                      />
+                      <Text className="text-lg font-montMedium text-[#113768]">
+                        Past Papers
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => router.push("/category")}
+                      className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]"
                     >
-                      <View className="flex-row gap-3 items-center">
-                        <Text className="font-montMedium text-xl">
-                          {student.rank}
-                        </Text>
-                        <Image
-                          source={student.image}
-                          style={{ width: 25, height: 25, borderRadius: 25 }}
-                        />
-                        <Text className="font-montMedium text-lg">
-                          {student.name}
+                      <Image
+                        source={require("@/assets/images/icons/subject-test.png")}
+                        style={{ width: 78, height: 78 }}
+                      />
+                      <Text className="text-lg font-montMedium text-[#113768]">
+                        Subject Test
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+              <View className="gap-6">
+                <Text className="text-3xl font-montBold text-[#113768]">
+                  Leaderboard
+                </Text>
+                <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-5">
+                  <View className="flex-row items-center justify-between">
+                    <Text className="text-2xl font-montMedium">Top 3</Text>
+                    <TouchableOpacity
+                      onPress={() => router.push("/leaderboard")}
+                    >
+                      <AntDesign name="arrowright" size={24} color="#113768" />
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    className="w-full border-[#c5dbf8]"
+                    style={{ borderWidth: 1 }}
+                  ></View>
+                  <View className="gap-4">
+                    {getTopThree(boardData).map((student, idx) => (
+                      <View
+                        key={idx}
+                        className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
+                      >
+                        <View className="flex-row gap-3 items-center">
+                          <Text className="font-montMedium text-xl">
+                            {student.rank}
+                          </Text>
+                          <Image
+                            source={student.image}
+                            style={{ width: 25, height: 25, borderRadius: 25 }}
+                          />
+                          <Text className="font-montMedium text-lg">
+                            {student.name}
+                          </Text>
+                        </View>
+                        <Text className="font-montMedium text-[#000]/40">
+                          {student.points}pt
                         </Text>
                       </View>
-                      <Text className="font-montMedium text-[#000]/40">
-                        {student.points}pt
-                      </Text>
-                    </View>
+                    ))}
+                  </View>
+                </View>
+              </View>
+              <View className="gap-6">
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-2xl font-montBold text-[#113768]">
+                    Performance Summary
+                  </Text>
+                  <TouchableOpacity onPress={() => router.push("/performance")}>
+                    <AntDesign name="arrowright" size={24} color="#113768" />
+                  </TouchableOpacity>
+                </View>
+                <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
+                  {performanceData.map((item, index) => (
+                    <ProgressBar
+                      key={index}
+                      label={item.label}
+                      progress={item.progress}
+                      showProgress={false}
+                    />
                   ))}
                 </View>
               </View>
-            </View>
-            <View className="gap-6">
-              <View className="flex-row items-center justify-between">
+              <View className="gap-6">
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-3xl font-montBold text-[#113768]">
+                    Progress Tracker
+                  </Text>
+                  <TouchableOpacity onPress={() => router.push("/progress")}>
+                    <AntDesign name="arrowright" size={24} color="#113768" />
+                  </TouchableOpacity>
+                </View>
+                <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
+                  {progressData.map((item, index) => (
+                    <ProgressBar
+                      key={index}
+                      label={item.label}
+                      progress={item.progress}
+                      showProgress
+                    />
+                  ))}
+                </View>
+              </View>
+              <View className="gap-6">
                 <Text className="text-3xl font-montBold text-[#113768]">
-                  Performance Summary
+                  Daily Quiz
                 </Text>
-                <TouchableOpacity onPress={() => router.push("/performance")}>
-                  <AntDesign name="arrowright" size={24} color="#113768" />
-                </TouchableOpacity>
+                <DailyQuiz />
               </View>
-              <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
-                {performanceData.map((item, index) => (
-                  <ProgressBar
-                    key={index}
-                    label={item.label}
-                    progress={item.progress}
-                    showProgress={false}
-                  />
-                ))}
-              </View>
-            </View>
-            <View className="gap-6">
-              <View className="flex-row items-center justify-between">
+              <View className="gap-6">
                 <Text className="text-3xl font-montBold text-[#113768]">
-                  Progress Tracker
+                  Live Exams
                 </Text>
-                <TouchableOpacity onPress={() => router.push("/progress")}>
-                  <AntDesign name="arrowright" size={24} color="#113768" />
-                </TouchableOpacity>
+                <LiveCalendar />
               </View>
-              <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
-                {progressData.map((item, index) => (
-                  <ProgressBar
-                    key={index}
-                    label={item.label}
-                    progress={item.progress}
-                    showProgress
-                  />
-                ))}
-              </View>
-            </View>
-            <View className="gap-6">
-              <Text className="text-3xl font-montBold text-[#113768]">
-                Daily Quiz
-              </Text>
-              <DailyQuiz />
-            </View>
-            <View className="gap-6">
-              <Text className="text-3xl font-montBold text-[#113768]">
-                Live Exams
-              </Text>
-              <LiveCalendar />
-            </View>
-            <View>
-              <View className="">
-                <Text className="text-3xl font-montBold text-[#113768]">
-                  Achievements
-                </Text>
+              <View>
+                <View className="">
+                  <Text className="text-3xl font-montBold text-[#113768]">
+                    Achievements
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-      <StatusBar style="light" />
-    </SafeAreaProvider>
+        </ScrollView>
+        <StatusBar style="light" />
+      </SafeAreaProvider>
+    </BackgroundWrapper>
   );
 };
 

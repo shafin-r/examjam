@@ -5,6 +5,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
 import { useTimer } from "@/context/TimerContext";
 import CustomBackHandler from "@/components/CustomBackHandler";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 // Example data
 const questionPapers = {
@@ -272,50 +273,54 @@ export default function ExamPage() {
   };
 
   return (
-    <SafeAreaProvider>
-      <Header examDuration={time} />
-      <View className="flex-1 pt-6">
-        <ScrollView>
-          <View className="mx-10 gap-10">
-            {questions.map((question) => (
-              <View
-                className="border-[1px] border-[#8abdff] rounded-[25] p-8 gap-6"
-                key={question.id}
-              >
-                <Text className="text-2xl font-montMedium pb-4">
-                  {question.id}. {question.question}
-                </Text>
-                <View className="gap-2">
-                  {Object.entries(question.options).map(([key, value]) => (
-                    <TouchableOpacity
-                      key={key}
-                      className="flex-row border-2 border-white/0 items-center gap-4"
-                      onPress={() => handleSelect(question.id, key)}
-                    >
-                      <Text
-                        className={`text-md rounded-full px-1 items-center justify-center border-[1px] ${
-                          (answers[question.id] || []).includes(key) &&
-                          "bg-[#113768] text-white"
-                        }`}
+    <BackgroundWrapper>
+      <SafeAreaProvider>
+        <Header examDuration={time} />
+        <View className="flex-1 pt-6">
+          <ScrollView>
+            <View className="mx-10 gap-10">
+              {questions.map((question) => (
+                <View
+                  className="border-[1px] border-[#8abdff] rounded-[25] p-8 gap-6"
+                  key={question.id}
+                >
+                  <Text className="text-2xl font-montMedium pb-4">
+                    {question.id}. {question.question}
+                  </Text>
+                  <View className="gap-2">
+                    {Object.entries(question.options).map(([key, value]) => (
+                      <TouchableOpacity
+                        key={key}
+                        className="flex-row border-2 border-white/0 items-center gap-4"
+                        onPress={() => handleSelect(question.id, key)}
                       >
-                        {key}
-                      </Text>
-                      <Text className="text-xl font-montRegular">{value}</Text>
-                    </TouchableOpacity>
-                  ))}
+                        <Text
+                          className={`text-md rounded-full px-1 items-center justify-center border-[1px] ${
+                            (answers[question.id] || []).includes(key) &&
+                            "bg-[#113768] text-white"
+                          }`}
+                        >
+                          {key}
+                        </Text>
+                        <Text className="text-xl font-montRegular">
+                          {value}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
-        </ScrollView>
-        <TouchableOpacity
-          className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
-          onPress={() => handleSubmit()}
-        >
-          <Text className="font-montBold text-white text-2xl">Submit</Text>
-        </TouchableOpacity>
-      </View>
-      <CustomBackHandler />
-    </SafeAreaProvider>
+              ))}
+            </View>
+          </ScrollView>
+          <TouchableOpacity
+            className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
+            onPress={() => handleSubmit()}
+          >
+            <Text className="font-montBold text-white text-2xl">Submit</Text>
+          </TouchableOpacity>
+        </View>
+        <CustomBackHandler />
+      </SafeAreaProvider>
+    </BackgroundWrapper>
   );
 }
