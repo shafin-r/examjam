@@ -1,5 +1,11 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
@@ -313,7 +319,7 @@ export default function ExamPage() {
             </View>
           </ScrollView>
           <TouchableOpacity
-            className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
+            style={styles.bottomButton}
             onPress={() => handleSubmit()}
           >
             <Text className="font-montBold text-white text-2xl">Submit</Text>
@@ -324,3 +330,15 @@ export default function ExamPage() {
     </BackgroundWrapper>
   );
 }
+
+const styles = StyleSheet.create({
+  bottomButton: {
+    width: "100%",
+    backgroundColor: "#113768",
+    height: 78,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0)",
+  },
+});

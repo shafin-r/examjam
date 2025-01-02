@@ -30,6 +30,7 @@ const questionPapers = {
           D: "6",
         },
         correctAnswer: "4",
+        solution: "This is the solution for 1",
       },
       {
         id: 2,
@@ -42,6 +43,7 @@ const questionPapers = {
           D: "10",
         },
         correctAnswer: "5",
+        solution: "This is the solution for 2",
       },
       {
         id: 3,
@@ -54,6 +56,7 @@ const questionPapers = {
           D: "10",
         },
         correctAnswer: "5",
+        solution: "This is the solution for 3",
       },
     ],
   },
@@ -71,6 +74,7 @@ const questionPapers = {
           D: "45",
         },
         correctAnswer: "180°",
+        solution: "This is the solution for 3",
       },
       {
         id: 2,
@@ -83,6 +87,7 @@ const questionPapers = {
           D: "circle",
         },
         correctAnswer: "Square",
+        solution: "This is the solution for 3",
       },
     ],
   },
@@ -100,6 +105,7 @@ const questionPapers = {
           D: "Watt",
         },
         correctAnswer: "Newton",
+        solution: "This is the solution for 3",
       },
       {
         id: 2,
@@ -112,6 +118,7 @@ const questionPapers = {
           D: "30,000 km/s",
         },
         correctAnswer: "300,000 km/s",
+        solution: "This is the solution for 3",
       },
       {
         id: 3,
@@ -124,6 +131,7 @@ const questionPapers = {
           D: "F = m - a",
         },
         correctAnswer: "F = ma",
+        solution: "This is the solution for 3",
       },
     ],
   },
@@ -141,6 +149,7 @@ const questionPapers = {
           D: "John Adams",
         },
         correctAnswer: "George Washington",
+        solution: "This is the solution for 3",
       },
       {
         id: 2,
@@ -153,6 +162,7 @@ const questionPapers = {
           D: "1950",
         },
         correctAnswer: "1945",
+        solution: "This is the solution for 3",
       },
       {
         id: 3,
@@ -165,6 +175,7 @@ const questionPapers = {
           D: "Amerigo Vespucci",
         },
         correctAnswer: "Christopher Columbus",
+        solution: "This is the solution for 3",
       },
     ],
   },
@@ -182,6 +193,7 @@ const questionPapers = {
           D: "1",
         },
         correctAnswer: "2x",
+        solution: "This is the solution for 3",
       },
       {
         id: 2,
@@ -194,6 +206,7 @@ const questionPapers = {
           D: "C/x",
         },
         correctAnswer: "ln(x) + C",
+        solution: "This is the solution for 3",
       },
       {
         id: 3,
@@ -206,6 +219,7 @@ const questionPapers = {
           D: "3.16",
         },
         correctAnswer: "3.14",
+        solution: "This is the solution for 3",
       },
     ],
   },
@@ -227,10 +241,12 @@ const ResultsPage = () => {
     const isCorrect = userAnswer === question.correctAnswer;
 
     return {
+      id: question.id,
       questionText: question.question,
       userAnswer,
       correctAnswer: question.correctAnswer,
       isCorrect,
+      solution: question.solution,
       options: question.options,
     };
   });
@@ -347,11 +363,7 @@ const ResultsPage = () => {
                         </Text>
                         <View>
                           <Text className="font-montRegular text-xl leading-10">
-                            Let present age of A and B be 4x and 5x 18 years ago
-                            their ages 4x - 18/5x - 18 = 11/16 Or, 64x - 288 =
-                            55x - 198 Or, 64x - 55x = -198 + 288 Or, 9x = 90 Or,
-                            x = 90/9 = 10 Sum of the present ages = 40 + 50 = 90
-                            years
+                            {result.solution}
                           </Text>
                         </View>
                       </View>
@@ -361,33 +373,9 @@ const ResultsPage = () => {
               </View>
             </ScrollView>
           </View>
-
-          {/* <FlatList
-        data={results}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.result}>
-            <Text style={styles.question}>{item.questionText}</Text>
-            <Text style={styles.answer}>
-              Your Answer: {item.userAnswer || "Not Answered"}
-            </Text>
-            <Text style={styles.correctAnswer}>
-              Correct Answer: {item.correctAnswer}
-            </Text>
-            <Text
-              style={{
-                color: item.isCorrect ? "green" : "red",
-                fontWeight: "bold",
-              }}
-            >
-              {item.isCorrect ? "Correct" : "Wrong"}
-            </Text>
-          </View>
-        )}
-      /> */}
         </SafeAreaView>
         <TouchableOpacity
-          className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
+          style={styles.bottomButton}
           onPress={() => router.push("/category")}
         >
           <Text className="font-montBold text-white text-2xl">Next</Text>
@@ -403,6 +391,15 @@ const styles = StyleSheet.create({
     borderStyle: "dashed",
     borderWidth: 1,
     borderColor: "#000",
+  },
+  bottomButton: {
+    width: "100%",
+    backgroundColor: "#113768",
+    height: 78,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0)",
   },
 });
 

@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import * as React from "react";
 import Header from "@/components/Header";
 import { StatusBar } from "expo-status-bar";
@@ -13,6 +20,8 @@ import LiveCalendar from "@/components/LiveCalendar";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const Home = () => {
+  const { height: screenHeight } = Dimensions.get("window");
+  const scaledHeight = screenHeight * 0.19;
   const profileImg = require("@/assets/images/static/pfp.jpg");
   const router = useRouter();
 
@@ -124,7 +133,10 @@ const Home = () => {
                 </View>
                 <View className="gap-4 pt-7">
                   <View className="flex-row justify-between ">
-                    <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                    <TouchableOpacity
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      style={{ height: scaledHeight }}
+                    >
                       <Image
                         source={require("@/assets/images/icons/topic-test.png")}
                         style={{ width: 78, height: 78 }}
@@ -133,7 +145,10 @@ const Home = () => {
                         Topic Test
                       </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                    <TouchableOpacity
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      style={{ height: scaledHeight }}
+                    >
                       <Image
                         source={require("@/assets/images/icons/mock-test.png")}
                         style={{ width: 78, height: 78 }}
@@ -144,7 +159,10 @@ const Home = () => {
                     </TouchableOpacity>
                   </View>
                   <View className="flex-row justify-between ">
-                    <TouchableOpacity className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]">
+                    <TouchableOpacity
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      style={{ height: scaledHeight }}
+                    >
                       <Image
                         source={require("@/assets/images/icons/past-paper.png")}
                         style={{ width: 70, height: 70 }}
@@ -155,7 +173,8 @@ const Home = () => {
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => router.push("/category")}
-                      className="justify-center items-center border-2 border-[#c5dbf8] h-[170] w-[48%] rounded-[25]"
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      style={{ height: scaledHeight }}
                     >
                       <Image
                         source={require("@/assets/images/icons/subject-test.png")}
@@ -278,5 +297,4 @@ const Home = () => {
     </BackgroundWrapper>
   );
 };
-
 export default Home;

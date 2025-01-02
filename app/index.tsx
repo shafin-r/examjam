@@ -11,13 +11,8 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
-// Get the current screen width
-
-// Calculate the dynamic height based on the screen width (adjust the ratio)
 
 export default function Index() {
-  const { width } = useWindowDimensions();
-  const height = (width * 80) / 375;
   const router = useRouter();
 
   const styles = StyleSheet.create({
@@ -29,6 +24,11 @@ export default function Index() {
       width: "100%", // Use percentage for responsiveness
       aspectRatio: 368 / 89, // Set aspect ratio (base width/height of your design)
       alignSelf: "center",
+    },
+    loginText: {
+      fontFamily: "Montserrat-Medium",
+      borderWidth: 1,
+      borderColor: "#fff",
     },
     login: {
       width: "100%",
@@ -60,15 +60,15 @@ export default function Index() {
               source={require("@/assets/images/static/login-graphic-1.png")}
               style={styles.login}
             />
-            <View className="gap-4 ">
+            <View className="gap-4">
               <TouchableOpacity
                 onPress={() => router.push("/home")}
                 style={styles.continue}
               >
-                <Text className="font-montMedium">Continue with Google</Text>
+                <Text style={styles.loginText}>Continue with Google</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.continue}>
-                <Text className="font-montMedium">Continue with Facebook</Text>
+                <Text style={styles.loginText}>Continue with Facebook</Text>
               </TouchableOpacity>
               <Text className="font-montMedium text-center">
                 Don't have an account?{" "}

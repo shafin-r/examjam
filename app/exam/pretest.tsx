@@ -1,4 +1,11 @@
-import { View, Text, Button, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -159,7 +166,7 @@ export default function PretestPage() {
           </ScrollView>
 
           <TouchableOpacity
-            className="w-full bg-[#113768] h-[90] justify-center items-center border-2 border-white/0"
+            style={styles.bottomButton}
             onPress={() => {
               if (paper) {
                 router.push(`/exam/${id}?time=${paperMeta.duration}`);
@@ -178,3 +185,15 @@ export default function PretestPage() {
     </BackgroundWrapper>
   );
 }
+
+const styles = StyleSheet.create({
+  bottomButton: {
+    width: "100%",
+    backgroundColor: "#113768",
+    height: 78,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0)",
+  },
+});

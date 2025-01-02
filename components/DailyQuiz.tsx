@@ -173,12 +173,15 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   questionContainer: {
-    padding: 16,
-    marginBottom: 20,
+    padding: 12,
+    borderWidth: 1,
+    borderRadius: 17,
+    borderColor: "rgba(34, 109, 206, 0.5)",
   },
   questionText: {
     fontSize: 24,
     fontWeight: "600",
+    fontFamily: "Montserrat-Medium",
   },
   optionButton: {
     flexDirection: "row",
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
     gap: 10,
     borderWidth: 2,
     borderColor: "transparent",
-    borderRadius: 10,
+    aspectRatio: 10,
   },
   selectedOption: {
     borderColor: "#113768",
@@ -195,12 +198,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#113768",
     color: "white",
     fontSize: 16,
-    paddingHorizontal: 10,
-    borderRadius: 20,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 50,
   },
   optionText: {
     fontSize: 18,
-    fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Medium",
   },
   feedbackText: {
     fontSize: 20,

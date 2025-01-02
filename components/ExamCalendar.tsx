@@ -160,14 +160,16 @@ const ExamCalendar = ({ year, month, examDates }) => {
       <View className="px-7 gap-3">
         <View className="flex-row border-2 border-white/0 items-center justify-between">
           <Text className="font-montMedium text-2xl">{months[month]} </Text>
-          <Text className="font-montRegular text-black">
-            <Text className=" text-[#000]/20">
+          <View className="font-montRegular text-black flex-row">
+            <Text style={{ fontFamily: "Montserrat-Regular" }}>
               {nextExam?.status === "Current"
                 ? "Current Live Test: "
                 : "Upcoming Live Test: "}
             </Text>
-            ({nextExam?.examName})
-          </Text>
+            <Text style={{ color: "black", fontFamily: "Montserrat-Medium" }}>
+              ({nextExam?.examName})
+            </Text>
+          </View>
         </View>
         <View
           className="w-full border-[#c5dbf8]"

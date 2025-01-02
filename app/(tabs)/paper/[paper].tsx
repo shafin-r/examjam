@@ -10,6 +10,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
+import CustomBackHandler from "@/components/CustomBackHandler";
 
 const questions = {
   "A Unit (Science)": [
@@ -69,15 +70,7 @@ export default function PaperScreen() {
           </View>
         </View>
       </View>
+      <CustomBackHandler />
     </BackgroundWrapper>
   );
-}
-
-{
-  /* <View className="">
-                <ActivityIndicator size="large" />
-                <Text className="font-montBold text-2xl text-center">
-                  Loading...
-                </Text>
-              </View> */
 }

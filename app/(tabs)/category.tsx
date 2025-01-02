@@ -9,6 +9,7 @@ import React from "react";
 import Header from "@/components/Header";
 import { useRouter } from "expo-router";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
+import { StatusBar } from "expo-status-bar";
 const subjects = [
   {
     id: 1,
@@ -70,6 +71,7 @@ const Category = () => {
           </ScrollView>
         </View>
       </View>
+      <StatusBar style="light" />
     </BackgroundWrapper>
   );
 };
