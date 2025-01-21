@@ -62,7 +62,8 @@
             "./assets/fonts/Montserrat-ThinItalic.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

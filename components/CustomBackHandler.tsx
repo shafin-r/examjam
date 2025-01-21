@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BackHandler, Alert } from "react-native";
 import { useRouter, useSegments } from "expo-router";
 
-const CustomBackHandler = () => {
+const CustomBackHandler = ({ routeName }) => {
   const router = useRouter();
   const segments = useSegments(); // Tracks the current navigation segments (routes)
 
@@ -10,7 +10,7 @@ const CustomBackHandler = () => {
     const onBackPress = () => {
       if (segments.length > 1) {
         // If there's a previous route in the stack, navigate back
-        router.replace("/category"); // Adjust to navigate to your preferred route
+        router.replace(`/${routeName}`); // Adjust to navigate to your preferred route
         return true; // Prevent default behavior
       } else {
         // Show confirmation dialog or exit app

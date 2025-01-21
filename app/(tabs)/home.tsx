@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { StatusBar } from "expo-status-bar";
 import SlidingGallery from "@/components/SlidingGallery";
@@ -18,12 +18,16 @@ import ProgressBar from "@/components/ProgressBar";
 import DailyQuiz from "@/components/DailyQuiz";
 import LiveCalendar from "@/components/LiveCalendar";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
+import { API_URL } from "@/lib/auth";
+import DestructibleAlert from "@/components/DestructibleAlert";
 
 const Home = () => {
   const { height: screenHeight } = Dimensions.get("window");
   const scaledHeight = screenHeight * 0.19;
   const profileImg = require("@/assets/images/static/pfp.jpg");
   const router = useRouter();
+  const [boardData, setBoardData] = useState<string[] | null>([]);
+  const [boardError, setBoardError] = useState<string | null>(null);
 
   const performanceData = [
     { label: "Mock Test", progress: 20 },
@@ -35,68 +39,23 @@ const Home = () => {
     { label: "Chemistry", progress: 57 },
   ];
 
-  const boardData = [
-    {
-      id: "1",
-      name: "Shafin",
-      points: 378,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "2",
-      name: "Alice",
-      points: 350,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "3",
-      name: "Bob",
-      points: 387,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "4",
-      name: "Charlie",
-      points: 367,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "5",
-      name: "Derek",
-      points: 396,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "6",
-      name: "Earl",
-      points: 289,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "7",
-      name: "Frazier",
-      points: 345,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "8",
-      name: "Gareth",
-      points: 356,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "9",
-      name: "Hamilton",
-      points: 245,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-    {
-      id: "10",
-      name: "Isaiah",
-      points: 221,
-      image: require("@/assets/images/static/pfp.jpg"),
-    },
-  ];
+  // For Rafeed
+  // fetch function for leaderboard data.
+  useEffect(() => {
+    async function fetchBoardData() {
+      try {
+        const boardResponse = await fetch(`${API_URL}/leaderboard`, {
+          method: "GET",
+        });
+        const fetchedBoardData = await boardResponse.json();
+        setBoardData(fetchedBoardData);
+      } catch (error) {
+        setBoardError("Something went wrong. Please try again.");
+      }
+    }
+
+    fetchBoardData();
+  }, []);
 
   const getTopThree = (boardData) => {
     const sortedData = boardData.slice().sort((a, b) => b.points - a.points);
@@ -134,6 +93,7 @@ const Home = () => {
                 <View className="gap-4 pt-7">
                   <View className="flex-row justify-between ">
                     <TouchableOpacity
+                      disabled
                       className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
                       style={{ height: scaledHeight }}
                     >
@@ -146,6 +106,7 @@ const Home = () => {
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
+                      onPress={() => router.push("/category")}
                       className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
                       style={{ height: scaledHeight }}
                     >
@@ -160,6 +121,7 @@ const Home = () => {
                   </View>
                   <View className="flex-row justify-between ">
                     <TouchableOpacity
+                      disabled
                       className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
                       style={{ height: scaledHeight }}
                     >
@@ -172,7 +134,7 @@ const Home = () => {
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() => router.push("/category")}
+                      disabled
                       className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
                       style={{ height: scaledHeight }}
                     >
@@ -193,7 +155,7 @@ const Home = () => {
                 </Text>
                 <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-5">
                   <View className="flex-row items-center justify-between">
-                    <Text className="text-2xl font-montMedium">Top 3</Text>
+                    <Text className="text-xl font-montMedium">Top 3</Text>
                     <TouchableOpacity
                       onPress={() => router.push("/leaderboard")}
                     >
@@ -216,9 +178,9 @@ const Home = () => {
                           </Text>
                           <Image
                             source={student.image}
-                            style={{ width: 25, height: 25, borderRadius: 25 }}
+                            style={{ width: 20, height: 20, borderRadius: 25 }}
                           />
-                          <Text className="font-montMedium text-lg">
+                          <Text className="font-montMedium text-md">
                             {student.name}
                           </Text>
                         </View>
@@ -227,6 +189,7 @@ const Home = () => {
                         </Text>
                       </View>
                     ))}
+                    {boardError && <DestructibleAlert text={boardError} />}
                   </View>
                 </View>
               </View>
@@ -235,19 +198,25 @@ const Home = () => {
                   <Text className="text-2xl font-montBold text-[#113768]">
                     Performance Summary
                   </Text>
-                  <TouchableOpacity onPress={() => router.push("/performance")}>
+                  <TouchableOpacity
+                    disabled
+                    onPress={() => router.push("/performance")}
+                  >
                     <AntDesign name="arrowright" size={24} color="#113768" />
                   </TouchableOpacity>
                 </View>
                 <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
-                  {performanceData.map((item, index) => (
+                  {/* {performanceData.map((item, index) => (
                     <ProgressBar
                       key={index}
                       label={item.label}
                       progress={item.progress}
                       showProgress={false}
                     />
-                  ))}
+                  ))} */}
+                  <Text className="font-montMedium text-xl text-center">
+                    Coming soon.
+                  </Text>
                 </View>
               </View>
               <View className="gap-6">
@@ -255,39 +224,42 @@ const Home = () => {
                   <Text className="text-3xl font-montBold text-[#113768]">
                     Progress Tracker
                   </Text>
-                  <TouchableOpacity onPress={() => router.push("/progress")}>
+                  <TouchableOpacity
+                    disabled
+                    onPress={() => router.push("/progress")}
+                  >
                     <AntDesign name="arrowright" size={24} color="#113768" />
                   </TouchableOpacity>
                 </View>
                 <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-8">
-                  {progressData.map((item, index) => (
+                  {/* {progressData.map((item, index) => (
                     <ProgressBar
                       key={index}
                       label={item.label}
                       progress={item.progress}
                       showProgress
                     />
-                  ))}
+                  ))} */}
+                  <Text className="font-montMedium text-xl text-center">
+                    Coming soon.
+                  </Text>
                 </View>
               </View>
               <View className="gap-6">
                 <Text className="text-3xl font-montBold text-[#113768]">
                   Daily Quiz
                 </Text>
-                <DailyQuiz />
+                <Text className="border-2 border-[#c5dbf8] p-10 rounded-3xl font-montMedium text-xl text-center">
+                  Coming soon.
+                </Text>
               </View>
-              <View className="gap-6">
+              <View className="gap-6 mb-20">
                 <Text className="text-3xl font-montBold text-[#113768]">
                   Live Exams
                 </Text>
-                <LiveCalendar />
-              </View>
-              <View>
-                <View className="">
-                  <Text className="text-3xl font-montBold text-[#113768]">
-                    Achievements
-                  </Text>
-                </View>
+                <Text className="border-2 border-[#c5dbf8] p-10 rounded-3xl font-montMedium text-xl text-center">
+                  Coming soon.
+                </Text>
               </View>
             </View>
           </View>

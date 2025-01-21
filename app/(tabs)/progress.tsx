@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
 import ProgressBar from "@/components/ProgressBar";
 
-const PerformancePage = () => {
+const ProgressPage = () => {
   const progressData = [
     { label: "Physics", progress: 25 },
     { label: "Chemistry", progress: 57 },
@@ -30,4 +30,4 @@ const PerformancePage = () => {
   );
 };
 
-export default PerformancePage;
+export default ProgressPage;

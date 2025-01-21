@@ -6,6 +6,7 @@ import DestructibleAlert from "@/components/DestructibleAlert";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const LeaderboardPage = () => {
+  const [boardError, setBoardError] = useState<string | null>(null);
   const [boardData, setBoardData] = useState([
     {
       id: "1",
@@ -72,75 +73,49 @@ const LeaderboardPage = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [componentKey, setComponentKey] = useState(0);
 
+  // For Rafeed
+  // fetch function for leaderboard data.
   const onRefresh = async () => {
     setRefreshing(true);
-    setBoardData([
-      {
-        id: "1",
-        name: "Shafin",
-        points: 321,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "2",
-        name: "Alice",
-        points: 350,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "3",
-        name: "Bob",
-        points: 387,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "4",
-        name: "Charlie",
-        points: 367,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "5",
-        name: "Derek",
-        points: 396,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "6",
-        name: "Earl",
-        points: 289,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "7",
-        name: "Frazier",
-        points: 345,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "8",
-        name: "Gareth",
-        points: 356,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "9",
-        name: "Hamilton",
-        points: 245,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-      {
-        id: "10",
-        name: "Isaiah",
-        points: 221,
-        image: require("@/assets/images/static/pfp.jpg"),
-      },
-    ]);
+    async function fetchBoardData() {
+      try {
+        const boardResponse = await fetch(`${API_URL}/leaderboard`, {
+          method: "GET",
+        });
+        const fetchedBoardData = await boardResponse.json();
+        setBoardData(fetchedBoardData);
+      } catch (error) {
+        setBoardError("Something went wrong. Please try again.");
+      }
+    }
+
+    fetchBoardData();
     setComponentKey((prevKey) => prevKey + 1);
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
   };
+
+  if (boardError) {
+    return (
+      <View className="h-screen">
+        <Header
+          displaySubject={"Leaderboard"}
+          displayTabTitle={null}
+          displayUser={false}
+        />
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <View className="mt-5 px-5">
+            <DestructibleAlert text={boardError} />
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
 
   const getTopThree = (boardData) => {
     const sortedData = boardData.slice().sort((a, b) => b.points - a.points);

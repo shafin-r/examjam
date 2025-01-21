@@ -12,14 +12,17 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import DestructibleAlert from "@/components/DestructibleAlert";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
+import CustomBackHandler from "@/components/CustomBackHandler";
 
+// For Rafeed
+// Remove this when the fetch function is established
 const questionData = {
   1: {
-    title: "Algebra Basics",
+    title: "বাংলা",
     metadata: {
-      quantity: 2,
+      quantity: 12,
       type: "Multiple Choice Questions",
-      duration: 60,
+      duration: 30,
       marking: "1 mark off",
     },
   },
@@ -66,6 +69,8 @@ export default function PretestPage() {
   const { id, title, rating } = useLocalSearchParams();
   let paperMeta;
 
+  // For Rafeed
+  // Put a fetch request here to request the title and metadata information of a paper based on the id of the paper.
   const paper = questionData[id];
   if (paper) {
     paperMeta = paper.metadata;
@@ -181,6 +186,7 @@ export default function PretestPage() {
           </TouchableOpacity>
         </SafeAreaView>
         <StatusBar style="dark" />
+        <CustomBackHandler routeName={paper} />
       </SafeAreaProvider>
     </BackgroundWrapper>
   );

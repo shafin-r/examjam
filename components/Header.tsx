@@ -123,7 +123,7 @@ const Header = ({
               <Text className="font-montMedium text-sm">Secs</Text>
             </View>
           </View>
-          <TouchableOpacity onPress={() => router.push("/exam/modal")}>
+          <TouchableOpacity disabled onPress={() => router.push("/exam/modal")}>
             <Feather name="layers" size={30} color="white" />
           </TouchableOpacity>
         </View>

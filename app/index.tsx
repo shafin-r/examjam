@@ -27,8 +27,6 @@ export default function Index() {
     },
     loginText: {
       fontFamily: "Montserrat-Medium",
-      borderWidth: 1,
-      borderColor: "#fff",
     },
     login: {
       width: "100%",
@@ -62,17 +60,14 @@ export default function Index() {
             />
             <View className="gap-4">
               <TouchableOpacity
-                onPress={() => router.push("/home")}
+                onPress={() => router.push("/login")}
                 style={styles.continue}
               >
-                <Text style={styles.loginText}>Continue with Google</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.continue}>
-                <Text style={styles.loginText}>Continue with Facebook</Text>
+                <Text style={styles.loginText}>Login</Text>
               </TouchableOpacity>
               <Text className="font-montMedium text-center">
                 Don't have an account?{" "}
-                <Link href="/">
+                <Link href="/register">
                   <Text className="text-[#276ac0] ">Register here</Text>
                 </Link>
               </Text>

@@ -10,7 +10,8 @@ import Header from "@/components/Header";
 import { useRouter } from "expo-router";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { StatusBar } from "expo-status-bar";
-const subjects = [
+import CustomBackHandler from "@/components/CustomBackHandler";
+const units = [
   {
     id: 1,
     name: "A Unit (Science)",
@@ -30,12 +31,13 @@ const subjects = [
 
 const Category = () => {
   const router = useRouter();
+
   return (
     <BackgroundWrapper>
       <View className="flex-1">
         <Header
           displayExamInfo={null}
-          displayTabTitle={"Subjects"}
+          displayTabTitle={"Units"}
           displaySubject={null}
           displayUser={false}
           title=""
@@ -44,18 +46,16 @@ const Category = () => {
         <View className="flex-1">
           <ScrollView className="">
             <View className="border-[1px] border-[#c0dafc] gap-4 h-fit rounded-[25] p-6 mx-10 mt-10">
-              {subjects ? (
-                subjects.map((subject) => (
+              {units ? (
+                units.map((unit) => (
                   <TouchableOpacity
-                    key={subject.id}
-                    onPress={() => router.push(`/paper/${subject.name}`)}
+                    key={unit.id}
+                    onPress={() => router.push(`/paper/${unit.name}`)}
                     className="border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2"
                   >
-                    <Text className="text-lg font-montMedium">
-                      {subject.name}
-                    </Text>
+                    <Text className="text-lg font-montMedium">{unit.name}</Text>
                     <Text className="text-sm font-montRegular">
-                      Rating: {subject.rating} / 10
+                      Rating: {unit.rating} / 10
                     </Text>
                   </TouchableOpacity>
                 ))
@@ -72,6 +72,7 @@ const Category = () => {
         </View>
       </View>
       <StatusBar style="light" />
+      <CustomBackHandler routeName={"home"} />
     </BackgroundWrapper>
   );
 };
