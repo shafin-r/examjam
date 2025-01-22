@@ -19,9 +19,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundImage": "./assets/images/static/paper-background.png"
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.solanine.examjam"
+      "package": "com.app.examjam"
     },
     "web": {
       "bundler": "metro",

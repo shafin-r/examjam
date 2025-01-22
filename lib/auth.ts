@@ -1,4 +1,5 @@
 import { saveToken } from "./secure-store";
+import { router } from "expo-router";
 
 export const API_URL = "https://examjam-api.pptx704.com";
 
@@ -18,7 +19,6 @@ export const login = async (
 
   await saveToken(data.token); // Save the token to secure storage
   setToken(data.token); // Update the token in context
-  console.log("Successfully logged in!");
 };
 
 export const register = async (
@@ -45,5 +45,4 @@ export const register = async (
 
   await saveToken(data.token); // Save the token to secure storage
   setToken(data.token); // Update the token in context
-  console.log("Successfully registered new user!");
 };

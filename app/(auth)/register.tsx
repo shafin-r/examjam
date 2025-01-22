@@ -12,8 +12,10 @@ import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { Image } from "expo-image";
 import FormField from "@/components/FormField";
 import { register } from "@/lib/auth";
+import { useAuth } from "@/context/AuthContext";
 
 const RegisterScreen = () => {
+  const { setToken } = useAuth();
   const router = useRouter();
   const [form, setForm] = useState({
     name: "",
@@ -28,14 +30,14 @@ const RegisterScreen = () => {
 
   // For Rafeed
   // Function to login a user. I've kept it in a barebones form right now, but you can just call the login function from  /lib/auth.ts and pass on the form.
-  async function createUser() {
-    const routeUser = await register(form);
-    if (routeUser) {
-      router.push("/home");
-    } else {
-      setError("Something went wrong");
+  const createUser = async () => {
+    try {
+      await register(form, setToken); // Call the login function
+      router.push("/home"); // Redirect on successful login
+    } catch (error: any) {
+      setError(error.message); // Handle error messages
     }
-  }
+  };
 
   return (
     <BackgroundWrapper>
