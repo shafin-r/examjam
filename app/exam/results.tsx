@@ -14,79 +14,54 @@ import { BackHandler } from "react-native";
 import CustomBackHandler from "@/components/CustomBackHandler";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 
-// For Rafeed
-// Fetch these info of a question paper based on the id
-const questionPapers = {
-  1: {
-    title: "বাংলা",
-    questions: [
-      {
-        id: 1,
-        question: "‘শিশিরসিক্ত’ কোন সমাসের দৃষ্টান্ত?",
-        type: "single",
-        options: {
-          A: "তৃতীয়া তৎপুরুষ",
-          B: "ষষ্ঠী তৎপুরুষ",
-          C: "অলুক তৎপুরুষ",
-          D: "কর্ম তৎপুরুষ",
-        },
-        correctAnswer: "তৃতীয়া তৎপুরুষ",
-        solution: "",
-      },
-    ],
-  },
-};
-
 const ResultsPage = () => {
-  const { id, answers } = useLocalSearchParams();
-
+  const { answers } = useLocalSearchParams();
+  console.log(answers);
   // Parse submitted answers
-  const submittedAnswers = JSON.parse(answers); // e.g., { "1": ["B"], "2": ["A"] }
+  const resultSheet = JSON.parse(answers);
+  console.log(resultSheet); // e.g., { "1": ["B"], "2": ["A"] }
 
-  // Get the specific question paper
-  const questionPaper = questionPapers[id];
+  // // Process results
+  // const results = questionPaper.questions.map((question) => {
+  //   const userAnswerKey = submittedAnswers[question.id]; // e.g., "B" or "C"
+  //   const userAnswer = userAnswerKey ? question.options[userAnswerKey] : null;
+  //   const isCorrect = userAnswer === question.correctAnswer;
 
-  // Process results
-  const results = questionPaper.questions.map((question) => {
-    const userAnswerKey = submittedAnswers[question.id]; // e.g., "B" or "C"
-    const userAnswer = userAnswerKey ? question.options[userAnswerKey] : null;
-    const isCorrect = userAnswer === question.correctAnswer;
+  //   return {
+  //     id: question.id,
+  //     questionText: question.question,
+  //     userAnswer,
+  //     correctAnswer: question.correctAnswer,
+  //     isCorrect,
+  //     solution: question.solution,
+  //     options: question.options,
+  //   };
+  // });
 
-    return {
-      id: question.id,
-      questionText: question.question,
-      userAnswer,
-      correctAnswer: question.correctAnswer,
-      isCorrect,
-      solution: question.solution,
-      options: question.options,
-    };
-  });
-
-  // Calculate total score
-  const score = results.filter((result) => result.isCorrect).length;
-  console.log(results);
+  // // Calculate total score
+  // const score = results.filter((result) => result.isCorrect).length;
+  // console.log(results);
 
   return (
     <BackgroundWrapper>
       <SafeAreaProvider>
         <SafeAreaView className="mx-10 mt-10 h-full gap-10 flex-1">
-          <TouchableOpacity onPress={() => router.push("/category")}>
+          <TouchableOpacity onPress={() => router.push("/unit")}>
             <AntDesign name="arrowleft" size={30} color="black" />
           </TouchableOpacity>
 
           <View className="flex-1">
             <ScrollView className="">
               <Text className="font-montBold text-3xl text-[#113768] text-center mb-6">
-                {(score / questionPaper.questions.length) * 100 < 30
+                {resultSheet.score < 30
                   ? "Try harder!"
-                  : (score / questionPaper.questions.length) * 100 < 70
+                  : resultSheet.score < 70
                   ? "Getting Better"
                   : "You did great!"}
               </Text>
               <View className="h-[170] w-full border-2 rounded-[25] border-[#c1dcff] p-6 justify-center items-center gap-3">
                 <Text className="font-montMedium text-2xl border-2 border-white/0">
-                  Accuracy:
+                  Score:
                 </Text>
                 <View className="flex-row items-center gap-3 ">
                   <MaterialIcons
@@ -96,14 +71,7 @@ const ResultsPage = () => {
                     className=""
                   />
                   <Text className="font-montBold text-[64px] text-[#113768] ">
-                    {(
-                      (score / questionPaper.questions.length) *
-                      100
-                    ).toLocaleString("en-US", {
-                      maximumFractionDigits: 1,
-                      minimumFractionDigits: 1,
-                    })}
-                    %
+                    {resultSheet.score}
                   </Text>
                 </View>
               </View>
@@ -112,30 +80,30 @@ const ResultsPage = () => {
                   Solutions
                 </Text>
                 <View className="gap-6 mt-6">
-                  {results.map((result, idx) => (
+                  {resultSheet.questions.map((question, idx) => (
                     <View
                       key={idx}
                       className="h-fit border-2 border-[#abd0ff] p-6 rounded-[20] gap-4"
                     >
                       <View className="gap-2">
                         <Text className="font-montMedium text-2xl">
-                          {idx + 1}. {result.questionText}
+                          {idx + 1}. {question.question}
                         </Text>
                         <View className="flex-row justify-between border-2 border-white/0">
                           <View></View>
                           <View
                             className={`px-4 rounded-xl border-2 border-white/0 ${
-                              result.userAnswer === null
+                              question.userAnswer === null
                                 ? "bg-yellow-500"
-                                : result.isCorrect
+                                : question.isCorrect
                                 ? "bg-green-500"
                                 : "bg-red-500"
                             }`}
                           >
                             <Text className="text-white font-montBold">
-                              {result.userAnswer === null
+                              {question.userAnswer === null
                                 ? "Skipped"
-                                : result.isCorrect
+                                : question.isCorrect
                                 ? "Correct"
                                 : "Incorrect"}
                             </Text>
@@ -143,27 +111,29 @@ const ResultsPage = () => {
                         </View>
                       </View>
                       <View>
-                        {Object.entries(result.options).map(([key, option]) => (
-                          <View
-                            key={key}
-                            className="flex-row border-2 border-white/0 items-center gap-4"
-                          >
-                            <Text
-                              className={`text-md rounded-full px-1 items-center justify-center border-[1px] &
+                        {Object.entries(question.options).map(
+                          ([key, option]) => (
+                            <View
+                              key={key}
+                              className="flex-row border-2 border-white/0 items-center gap-4"
+                            >
+                              <Text
+                                className={`text-md rounded-full px-1 items-center justify-center border-[1px] &
                           ${
-                            result.userAnswer === option
+                            question.userAnswer === key
                               ? "bg-[#113768] text-white"
                               : ""
                           }
                         }`}
-                            >
-                              {key}
-                            </Text>
-                            <Text className="text-xl font-montRegular">
-                              {option}
-                            </Text>
-                          </View>
-                        ))}
+                              >
+                                {key.toUpperCase()}
+                              </Text>
+                              <Text className="text-xl font-montRegular">
+                                {option}
+                              </Text>
+                            </View>
+                          )
+                        )}
                       </View>
                       <View
                         className="w-full"
@@ -175,7 +145,7 @@ const ResultsPage = () => {
                         </Text>
                         <View>
                           <Text className="font-montRegular text-xl leading-10">
-                            {result.solution}
+                            {question.solution}
                           </Text>
                         </View>
                       </View>
@@ -188,7 +158,7 @@ const ResultsPage = () => {
         </SafeAreaView>
         <TouchableOpacity
           style={styles.bottomButton}
-          onPress={() => router.push("/category")}
+          onPress={() => router.push("/unit")}
         >
           <Text className="font-montBold text-white text-2xl">Next</Text>
         </TouchableOpacity>

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -13,75 +14,38 @@ import { StatusBar } from "expo-status-bar";
 import DestructibleAlert from "@/components/DestructibleAlert";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import CustomBackHandler from "@/components/CustomBackHandler";
+import { useEffect, useState } from "react";
+import { API_URL } from "@/lib/auth";
 
 // For Rafeed
 // Remove this when the fetch function is established
-const questionData = {
-  1: {
-    title: "বাংলা",
-    metadata: {
-      quantity: 12,
-      type: "Multiple Choice Questions",
-      duration: 30,
-      marking: "1 mark off",
-    },
-  },
-  2: {
-    title: "Geometry Fundamentals",
-    metadata: {
-      quantity: 4,
-      type: "One word question",
-      duration: 10,
-      marking: "1 mark off",
-    },
-  },
-  3: {
-    title: "Physics Basics",
-    metadata: {
-      quantity: 4,
-      type: "One word question",
-      duration: 10,
-      marking: "1 mark off",
-    },
-  },
-  4: {
-    title: "History Essentials",
-    metadata: {
-      quantity: 4,
-      type: "One word question",
-      duration: 10,
-      marking: "1 mark off",
-    },
-  },
-  5: {
-    title: "Math Advanced",
-    metadata: {
-      quantity: 4,
-      type: "One word question",
-      duration: 10,
-      marking: "1 mark off",
-    },
-  },
-};
 
 export default function PretestPage() {
   const router = useRouter();
   const { id, title, rating } = useLocalSearchParams();
-  let paperMeta;
-
-  // For Rafeed
-  // Put a fetch request here to request the title and metadata information of a paper based on the id of the paper.
-  const paper = questionData[id];
-  if (paper) {
-    paperMeta = paper.metadata;
+  const [metadata, setMetadata] = useState();
+  async function fetchQuestions() {
+    try {
+      const questionResponse = await fetch(`${API_URL}/mock/${id}`, {
+        method: "GET",
+      });
+      const fetchedMetadata = await questionResponse.json();
+      setMetadata(fetchedMetadata);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
 
   return (
     <BackgroundWrapper>
       <SafeAreaProvider>
         <SafeAreaView className="justify-between h-full">
           <ScrollView>
-            {paper !== undefined ? (
+            {metadata ? (
               <View className="mx-10 mt-10 gap-6 pb-6">
                 <TouchableOpacity onPress={() => router.push(`/category`)}>
                   <AntDesign name="arrowleft" size={30} color="black" />
@@ -101,10 +65,10 @@ export default function PretestPage() {
                     />
                     <View className="gap-2">
                       <Text className="font-montBold text-4xl text-[#113768]">
-                        {paperMeta.quantity}
+                        {metadata.metadata.quantity}
                       </Text>
                       <Text className="font-montRegular text-lg">
-                        {paperMeta.type}
+                        {metadata.metadata.type}
                       </Text>
                     </View>
                   </View>
@@ -112,7 +76,7 @@ export default function PretestPage() {
                     <AntDesign name="clockcircleo" size={40} color="#113768" />
                     <View className="gap-2">
                       <Text className="font-montBold text-4xl text-[#113768]">
-                        {paperMeta.duration} mins
+                        {metadata.metadata.duration} mins
                       </Text>
                       <Text className="font-montRegular text-lg">
                         Time Taken
@@ -123,7 +87,7 @@ export default function PretestPage() {
                     <AntDesign name="closecircleo" size={40} color="#113768" />
                     <View className="gap-2">
                       <Text className="font-montBold text-4xl text-[#113768]">
-                        {paperMeta.marking}
+                        {metadata.metadata.marking}
                       </Text>
                       <Text className="font-montRegular text-lg">
                         From each wrong answer
@@ -165,7 +129,7 @@ export default function PretestPage() {
               </View>
             ) : (
               <View className="mt-60">
-                <DestructibleAlert text="Paper not found." />
+                <ActivityIndicator />
               </View>
             )}
           </ScrollView>
@@ -173,20 +137,19 @@ export default function PretestPage() {
           <TouchableOpacity
             style={styles.bottomButton}
             onPress={() => {
-              if (paper) {
-                router.push(`/exam/${id}?time=${paperMeta.duration}`);
+              if (metadata) {
+                router.push(`/exam/${id}?time=${metadata.metadata.duration}`);
               } else {
-                router.push("/category");
+                router.push("/unit");
               }
             }}
           >
             <Text className="font-montBold text-white text-2xl">
-              {paper ? "Start Test" : "Go Back"}
+              {metadata ? "Start Test" : "Go Back"}
             </Text>
           </TouchableOpacity>
         </SafeAreaView>
         <StatusBar style="dark" />
-        <CustomBackHandler routeName={paper} />
       </SafeAreaProvider>
     </BackgroundWrapper>
   );

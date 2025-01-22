@@ -12,6 +12,7 @@ import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { Image } from "expo-image";
 import FormField from "@/components/FormField";
 import { login } from "@/lib/auth";
+import DestructibleAlert from "@/components/DestructibleAlert";
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -19,13 +20,17 @@ const LoginScreen = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   // For Rafeed
   // Function to login a user. I've kept it in a barebones form right now, but you can just call the login function from  /lib/auth.ts and pass on the form.
   async function loginUser() {
-    console.log(form);
-    // login(form);
-    router.push("/home");
+    const routeUser = await login(form);
+    if (routeUser) {
+      router.push("/home");
+    } else {
+      setError("Something went wrong");
+    }
   }
 
   return (
@@ -55,6 +60,7 @@ const LoginScreen = () => {
                     handleChangeText={(e) => setForm({ ...form, password: e })}
                   />
                 </View>
+                {error && <DestructibleAlert text={error} extraStyles={""} />}
                 <TouchableOpacity
                   onPress={() => loginUser()}
                   style={styles.continue}

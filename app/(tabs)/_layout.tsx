@@ -38,7 +38,7 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="category"
+          name="unit"
           options={{
             headerShown: false,
             tabBarLabel: "",
@@ -83,14 +83,14 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="paper/[paper]"
+          name="paper"
           options={{
             href: null,
             headerShown: false, // This excludes it from the tabs
           }}
         />
         <Tabs.Screen
-          name="sections"
+          name="categories"
           options={{
             href: null,
             headerShown: false, // This excludes it from the tabs

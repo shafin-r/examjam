@@ -24,12 +24,17 @@ const RegisterScreen = () => {
     phone: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   // For Rafeed
   // Function to login a user. I've kept it in a barebones form right now, but you can just call the login function from  /lib/auth.ts and pass on the form.
   async function createUser() {
-    console.log(form);
-    register(form);
+    const routeUser = await register(form);
+    if (routeUser) {
+      router.push("/home");
+    } else {
+      setError("Something went wrong");
+    }
   }
 
   return (
@@ -160,7 +165,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   title: {
-    fontFamily: "DMSans-Bold",
+    fontFamily: "Montserrat-Bold",
     letterSpacing: -4,
     fontSize: 40,
     color: "#0D47A1", // Adjusted color for "peak-950"
@@ -170,7 +175,7 @@ const styles = StyleSheet.create({
     gap: 40,
   },
   pickOptionText: {
-    fontFamily: "DMSans-Medium",
+    fontFamily: "Montserrat-Medium",
     fontSize: 40,
     letterSpacing: -2,
   },
@@ -200,7 +205,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   registerText: {
-    fontFamily: "DMSans-Medium",
+    fontFamily: "Montserrat-Medium",
     fontSize: 30,
     letterSpacing: -2,
     textAlign: "center",

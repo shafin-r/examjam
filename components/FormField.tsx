@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#666666",
-    fontFamily: "DMSans-Medium",
+    fontFamily: "Montserrat-Medium",
     fontSize: 18,
     marginBottom: 8,
     letterSpacing: -0.5,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   toggleText: {
-    fontFamily: "DMSans-Medium",
+    fontFamily: "Montserrat-Medium",
     fontSize: 16,
   },
 });

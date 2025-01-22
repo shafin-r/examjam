@@ -1,37 +1,55 @@
-import React, { createContext, useState, useEffect } from "react";
-import { saveToken, getToken, deleteToken } from "@/lib/secure-store";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { getToken, saveToken } from "@/lib/secure-store";
+import { useRouter } from "expo-router";
 
-export const AuthContext = createContext();
+interface AuthContextType {
+  token: string | null;
+  setToken: (token: string | null) => void;
+  logout: () => void;
+}
 
-export const AuthProvider = ({ children }) => {
-  const [userToken, setUserToken] = useState(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [token, setToken] = useState<string | null>(null);
+  const router = useRouter();
+
+  // On app load, check if there's a token in secure storage
   useEffect(() => {
-    const loadToken = async () => {
-      const token = await getToken();
-      if (token) setUserToken(token);
+    const initializeAuth = async () => {
+      const storedToken = await getToken();
+      if (storedToken) {
+        setToken(storedToken);
+        router.replace("/home"); // Redirect to the home page if logged in
+      } else {
+        router.replace("/login"); // Redirect to the login page if not logged in
+      }
     };
-    loadToken();
+
+    initializeAuth();
   }, []);
 
-  const login = async (email, password) => {
-    try {
-      const token = await login(email, password);
-      setUserToken(token);
-      await saveToken(token);
-    } catch (error) {
-      console.error("Login failed:", error.message);
-    }
-  };
-
+  // Function to log out
   const logout = async () => {
-    setUserToken(null);
-    await deleteToken();
+    setToken(null);
+    await saveToken(null); // Remove token from secure storage
+    router.replace("/login"); // Redirect to login screen
   };
 
   return (
-    <AuthContext.Provider value={{ userToken, login, logout }}>
+    <AuthContext.Provider value={{ token, setToken, logout }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Hook to use the AuthContext
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

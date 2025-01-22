@@ -6,7 +6,7 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 
-const SectionsPage = () => {
+const CategoriesPage = () => {
   const router = useRouter();
   const { height: screenHeight } = Dimensions.get("window");
   const scaledHeight = screenHeight * 0.19;
@@ -15,14 +15,14 @@ const SectionsPage = () => {
       <View>
         <Header
           examDuration={null}
-          displaySubject={null}
-          displayTabTitle="Categories"
+          displaySubject={"Categories"}
           displayUser={false}
         />
         <View className="gap-4 pt-7 mx-10">
           <View className="flex-row justify-between ">
             <TouchableOpacity
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+              disabled
+              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
               style={{ height: scaledHeight }}
             >
               <Image
@@ -34,8 +34,9 @@ const SectionsPage = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] "
               style={{ height: scaledHeight }}
+              onPress={() => router.push("/unit")}
             >
               <Image
                 source={require("@/assets/images/icons/mock-test.png")}
@@ -48,7 +49,8 @@ const SectionsPage = () => {
           </View>
           <View className="flex-row justify-between ">
             <TouchableOpacity
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+              disabled
+              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
               style={{ height: scaledHeight }}
             >
               <Image
@@ -60,8 +62,8 @@ const SectionsPage = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => router.push("/category")}
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+              disabled
+              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
               style={{ height: scaledHeight }}
             >
               <Image
@@ -79,4 +81,4 @@ const SectionsPage = () => {
   );
 };
 
-export default SectionsPage;
+export default CategoriesPage;

@@ -11,6 +11,8 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
 import { useTimer } from "@/context/TimerContext";
+import { API_URL } from "@/lib/auth";
+import { getToken } from "@/lib/secure-store";
 
 interface HeaderProps {
   name?: string | undefined | null;
@@ -22,7 +24,6 @@ interface HeaderProps {
 }
 
 const Header = ({
-  name,
   image,
   displayUser,
   displaySubject,
@@ -32,6 +33,7 @@ const Header = ({
   const router = useRouter();
   const [totalSeconds, setTotalSeconds] = useState(parseInt(examDuration) * 60);
   const { timeRemaining, stopTimer } = useTimer();
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -45,6 +47,25 @@ const Header = ({
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup interval on unmount
+  }, []);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch(`${API_URL}/me`, {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        });
+        const fetchedUserData = await response.json();
+        setUserData(fetchedUserData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchUser();
   }, []);
 
   const hours = Math.floor(totalSeconds / 3600);
@@ -65,7 +86,7 @@ const Header = ({
           text: "Yes",
           onPress: () => {
             stopTimer();
-            router.push("/category");
+            router.push("/unit");
           },
         },
       ],
@@ -78,7 +99,7 @@ const Header = ({
       {displayUser && (
         <View style={styles.profile}>
           <Image source={image} style={styles.profileImg} />
-          <Text style={styles.text}>Hello, {name}</Text>
+          <Text style={styles.text}>Hello, {userData?.name}</Text>
         </View>
       )}
       {displaySubject && (
@@ -156,13 +177,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   text: {
-    fontSize: 20,
+    fontSize: 17,
     fontFamily: "Montserrat-Bold",
     color: "#fff",
   },
   profileImg: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 50,
   },
   profile: {

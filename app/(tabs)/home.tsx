@@ -24,7 +24,7 @@ import DestructibleAlert from "@/components/DestructibleAlert";
 const Home = () => {
   const { height: screenHeight } = Dimensions.get("window");
   const scaledHeight = screenHeight * 0.19;
-  const profileImg = require("@/assets/images/static/pfp.jpg");
+  const profileImg = require("@/assets/images/static/avatar.jpg");
   const router = useRouter();
   const [boardData, setBoardData] = useState<string[] | null>([]);
   const [boardError, setBoardError] = useState<string | null>(null);
@@ -71,22 +71,20 @@ const Home = () => {
   return (
     <BackgroundWrapper>
       <SafeAreaProvider>
-        <Header
-          displayTabTitle={null}
-          displayUser
-          name="Shafin"
-          image={profileImg}
-        />
+        <Header displayTabTitle={null} displayUser image={profileImg} />
         <ScrollView className="pt-10">
           <View className="mx-10">
             <SlidingGallery />
             <View className="pt-10 gap-10">
               <View className="">
                 <View className="flex-row items-center justify-between">
-                  <Text className="text-3xl font-montBold text-[#113768]">
+                  <Text
+                    className="text-3xl font-montBold text-[#113768]"
+                    style={{ fontSize: 25 }}
+                  >
                     Categories
                   </Text>
-                  <TouchableOpacity onPress={() => router.push("/sections")}>
+                  <TouchableOpacity onPress={() => router.push("/categories")}>
                     <AntDesign name="arrowright" size={24} color="#113768" />
                   </TouchableOpacity>
                 </View>
@@ -94,19 +92,22 @@ const Home = () => {
                   <View className="flex-row justify-between ">
                     <TouchableOpacity
                       disabled
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
                       style={{ height: scaledHeight }}
                     >
                       <Image
                         source={require("@/assets/images/icons/topic-test.png")}
                         style={{ width: 78, height: 78 }}
                       />
-                      <Text className="text-lg font-montMedium text-[#113768]">
+                      <Text
+                        className="text-lg font-montMedium text-[#113768]"
+                        style={{ fontSize: 15 }}
+                      >
                         Topic Test
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() => router.push("/category")}
+                      onPress={() => router.push("/unit")}
                       className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
                       style={{ height: scaledHeight }}
                     >
@@ -114,7 +115,10 @@ const Home = () => {
                         source={require("@/assets/images/icons/mock-test.png")}
                         style={{ width: 78, height: 78 }}
                       />
-                      <Text className="text-lg font-montMedium text-[#113768]">
+                      <Text
+                        className="text-lg font-montMedium text-[#113768]"
+                        style={{ fontSize: 15 }}
+                      >
                         Mock Test
                       </Text>
                     </TouchableOpacity>
@@ -122,27 +126,33 @@ const Home = () => {
                   <View className="flex-row justify-between ">
                     <TouchableOpacity
                       disabled
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
                       style={{ height: scaledHeight }}
                     >
                       <Image
                         source={require("@/assets/images/icons/past-paper.png")}
                         style={{ width: 70, height: 70 }}
                       />
-                      <Text className="text-lg font-montMedium text-[#113768]">
+                      <Text
+                        className="text-lg font-montMedium text-[#113768]"
+                        style={{ fontSize: 15 }}
+                      >
                         Past Papers
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       disabled
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
+                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
                       style={{ height: scaledHeight }}
                     >
                       <Image
                         source={require("@/assets/images/icons/subject-test.png")}
                         style={{ width: 78, height: 78 }}
                       />
-                      <Text className="text-lg font-montMedium text-[#113768]">
+                      <Text
+                        className="text-lg font-montMedium text-[#113768]"
+                        style={{ fontSize: 15 }}
+                      >
                         Subject Test
                       </Text>
                     </TouchableOpacity>
@@ -157,6 +167,7 @@ const Home = () => {
                   <View className="flex-row items-center justify-between">
                     <Text className="text-xl font-montMedium">Top 3</Text>
                     <TouchableOpacity
+                      disabled
                       onPress={() => router.push("/leaderboard")}
                     >
                       <AntDesign name="arrowright" size={24} color="#113768" />
@@ -189,7 +200,6 @@ const Home = () => {
                         </Text>
                       </View>
                     ))}
-                    {boardError && <DestructibleAlert text={boardError} />}
                   </View>
                 </View>
               </View>

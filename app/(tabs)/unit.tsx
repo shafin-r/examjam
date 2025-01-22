@@ -13,23 +13,13 @@ import { StatusBar } from "expo-status-bar";
 import CustomBackHandler from "@/components/CustomBackHandler";
 const units = [
   {
-    id: 1,
-    name: "A Unit (Science)",
-    rating: 9,
-  },
-  {
-    id: 2,
-    name: "B Unit (Business Studies)",
-    rating: 9,
-  },
-  {
     id: 3,
     name: "C Unit (Humanities)",
     rating: 9,
   },
 ];
 
-const Category = () => {
+const UnitPage = () => {
   const router = useRouter();
 
   return (
@@ -50,8 +40,23 @@ const Category = () => {
                 units.map((unit) => (
                   <TouchableOpacity
                     key={unit.id}
-                    onPress={() => router.push(`/paper/${unit.name}`)}
-                    className="border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2"
+                    disabled={
+                      unit.name === "A Unit (Science)" ||
+                      unit.name === "B Unit (Business Studies)"
+                    }
+                    onPress={() =>
+                      router.push({
+                        pathname: "/paper",
+                        params: {
+                          name: unit.name, // Specify the key and value correctly
+                        },
+                      })
+                    }
+                    className={`border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2 ${
+                      (unit.name === "A Unit (Science)" ||
+                        unit.name === "B Unit (Business Studies)") &&
+                      "opacity-50"
+                    }`}
                   >
                     <Text className="text-lg font-montMedium">{unit.name}</Text>
                     <Text className="text-sm font-montRegular">
@@ -77,4 +82,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default UnitPage;

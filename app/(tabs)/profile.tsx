@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
 import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
+import { useAuth } from "@/context/AuthContext";
 
 const Profile = () => {
   return (
@@ -11,9 +12,7 @@ const Profile = () => {
         displayTabTitle="My Profile"
         displayUser={false}
       />
-      <View className="mx-10">
-        <DestructibleAlert extraStyles="mt-10" text="Page under work." />
-      </View>
+      <View className="mx-10"></View>
     </View>
   );
 };

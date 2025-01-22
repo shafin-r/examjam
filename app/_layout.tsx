@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import "../global.css";
 import { useEffect } from "react";
 import { TimerProvider } from "@/context/TimerContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,13 +40,15 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <TimerProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="exam" options={{ headerShown: false }} />
-      </Stack>
-    </TimerProvider>
+    <AuthProvider>
+      <TimerProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="exam" options={{ headerShown: false }} />
+        </Stack>
+      </TimerProvider>
+    </AuthProvider>
   );
 }

@@ -34,7 +34,7 @@ export default function Index() {
     },
     continue: {
       width: "100%",
-      height: 55,
+      height: 60,
       justifyContent: "center",
       alignItems: "center",
       borderWidth: 1,
