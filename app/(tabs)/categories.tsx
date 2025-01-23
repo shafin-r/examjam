@@ -5,6 +5,7 @@ import DestructibleAlert from "@/components/DestructibleAlert";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
+import CustomBackHandler from "@/components/CustomBackHandler";
 
 const CategoriesPage = () => {
   const router = useRouter();
@@ -77,6 +78,7 @@ const CategoriesPage = () => {
           </View>
         </View>
       </View>
+      <CustomBackHandler routeName="/home" />
     </BackgroundWrapper>
   );
 };

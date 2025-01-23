@@ -47,7 +47,7 @@ export default function PretestPage() {
           <ScrollView>
             {metadata ? (
               <View className="mx-10 mt-10 gap-6 pb-6">
-                <TouchableOpacity onPress={() => router.push(`/category`)}>
+                <TouchableOpacity onPress={() => router.push(`/unit`)}>
                   <AntDesign name="arrowleft" size={30} color="black" />
                 </TouchableOpacity>
                 <Text className="text-4xl font-montSemiBold text-[#113768]">
@@ -95,7 +95,7 @@ export default function PretestPage() {
                     </View>
                   </View>
                 </View>
-                <View className="border-[1.5px] border-[#226DCE]/30 rounded-[25] gap-8 py-7 px-5">
+                <View className="border-[1.5px] border-[#226DCE]/30 rounded-[25] gap-4 py-7 px-5">
                   <Text className="text-xl font-montBold">Ready yourself!</Text>
                   <View className="flex-row pr-4">
                     <Text className="mx-4">{`\u2022`}</Text>
@@ -107,8 +107,8 @@ export default function PretestPage() {
                   <View className="flex-row pr-4">
                     <Text className="mx-4">{`\u2022`}</Text>
                     <Text className="font-montRegular text-lg">
-                      1 mark awarded for a correct answer. No negative marking
-                      will be there for wrong answer.
+                      1 mark awarded for a correct answer. There is negative
+                      marking for the wrong answer.
                     </Text>
                   </View>
                   <View className="flex-row  pr-4">
@@ -121,8 +121,8 @@ export default function PretestPage() {
                   <View className="flex-row  pr-4">
                     <Text className="mx-4">{`\u2022`}</Text>
                     <Text className="font-montRegular text-lg">
-                      If you don't earn a badge this time, you can retake this
-                      test once more.
+                      You can retake this test however many times you want. But,
+                      you will earn points only once.
                     </Text>
                   </View>
                 </View>
@@ -151,7 +151,6 @@ export default function PretestPage() {
         </SafeAreaView>
         <StatusBar style="dark" />
       </SafeAreaProvider>
-      <CustomBackHandler routeName={"/unit"} />
     </BackgroundWrapper>
   );
 }

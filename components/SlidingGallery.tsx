@@ -1,5 +1,14 @@
-import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
+import { Image } from "expo-image";
+import { Link } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
@@ -12,16 +21,19 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   slide: {
-    width: width - 80,
+    width: width - 72,
     justifyContent: "center",
     alignItems: "center",
   },
   facebook: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
     width: "100%",
     height: "100%",
+    backgroundColor: "#fff",
+    borderRadius: 25,
+    padding: 20,
   },
   facebookOne: {
     fontFamily: "Montserrat-Black",
@@ -31,7 +43,7 @@ const styles = StyleSheet.create({
   facebookTwo: {
     fontFamily: "Montserrat-SemiBold",
     color: "#113768",
-    fontSize: 14,
+    fontSize: 13,
   },
   pagination: {
     flexDirection: "row",
@@ -51,35 +63,33 @@ const styles = StyleSheet.create({
   inactiveDot: {
     backgroundColor: "#ccc",
   },
+  textView: {
+    width: "60%",
+  },
+  logoView: {
+    width: "40%",
+    justifyContent: "flex-end",
+  },
 });
 
 const views = [
   {
     id: "1",
     content: (
-      <View style={styles.facebook}>
-        <View>
-          <Text style={styles.facebookOne}>Meet, Share, and Learn!</Text>
-          <Text style={styles.facebookTwo}>Join Facebook Community</Text>
+      <Link href="https://www.facebook.com/share/g/15jdqESvWV/?mibextid=wwXIfr">
+        <View style={styles.facebook}>
+          <View style={styles.textView}>
+            <Text style={styles.facebookOne}>Meet, Share, and Learn!</Text>
+            <Text style={styles.facebookTwo}>Join Facebook Community</Text>
+          </View>
+          <View style={styles.logoView}>
+            <Image
+              source={require("@/assets/images/icons/facebook-logo.png")}
+              style={{ width: 120, height: 120 }}
+            />
+          </View>
         </View>
-        <View></View>
-      </View>
-    ),
-  },
-  {
-    id: "2",
-    content: (
-      <View>
-        <Text>View 2</Text>
-      </View>
-    ),
-  },
-  {
-    id: "3",
-    content: (
-      <View>
-        <Text>View 3</Text>
-      </View>
+      </Link>
     ),
   },
 ];

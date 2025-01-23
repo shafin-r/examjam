@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.solanine.examjam",
+      "bundleIdentifier": "com.app.examjam",
       "buildNumber": "1.0.0",
       "config": {
         "usesNonExemptEncryption": false
@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#113768"
       },
       "package": "com.app.examjam"
     },

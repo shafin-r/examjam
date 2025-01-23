@@ -1,37 +1,30 @@
 import React, { useEffect } from "react";
-import { BackHandler, Alert } from "react-native";
-import { useRouter, useSegments } from "expo-router";
+import { BackHandler } from "react-native";
+import { useRouter } from "expo-router";
 
-const CustomBackHandler = ({ routeName }) => {
+type CustomBackHandlerProps = {
+  fallbackRoute: string; // The route to navigate to when pressing back
+};
+
+const CustomBackHandler: React.FC<CustomBackHandlerProps> = ({
+  fallbackRoute,
+}) => {
   const router = useRouter();
-  const segments = useSegments(); // Tracks the current navigation segments (routes)
 
   useEffect(() => {
     const onBackPress = () => {
-      if (segments.length > 1) {
-        // If there's a previous route in the stack, navigate back
-        router.replace(`/${routeName}`); // Adjust to navigate to your preferred route
-        return true; // Prevent default behavior
-      } else {
-        // Show confirmation dialog or exit app
-        Alert.alert(
-          "Exit App",
-          "Are you sure you want to exit the app?",
-          [
-            { text: "Cancel", style: "cancel" },
-            { text: "Exit", onPress: () => BackHandler.exitApp() },
-          ],
-          { cancelable: true }
-        );
-        return true; // Prevent default behavior
-      }
+      // Navigate to the fallback route
+      router.replace(`/${fallbackRoute}`);
+      return true; // Prevent default back behavior
     };
 
+    // Registering the back press handler
     BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-    return () =>
+    return () => {
       BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-  }, [segments, router]);
+    };
+  }, [fallbackRoute, router]);
 
   return null;
 };

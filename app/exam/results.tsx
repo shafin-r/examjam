@@ -16,31 +16,7 @@ import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const ResultsPage = () => {
   const { answers } = useLocalSearchParams();
-  console.log(answers);
-  // Parse submitted answers
   const resultSheet = JSON.parse(answers);
-  console.log(resultSheet); // e.g., { "1": ["B"], "2": ["A"] }
-
-  // // Process results
-  // const results = questionPaper.questions.map((question) => {
-  //   const userAnswerKey = submittedAnswers[question.id]; // e.g., "B" or "C"
-  //   const userAnswer = userAnswerKey ? question.options[userAnswerKey] : null;
-  //   const isCorrect = userAnswer === question.correctAnswer;
-
-  //   return {
-  //     id: question.id,
-  //     questionText: question.question,
-  //     userAnswer,
-  //     correctAnswer: question.correctAnswer,
-  //     isCorrect,
-  //     solution: question.solution,
-  //     options: question.options,
-  //   };
-  // });
-
-  // // Calculate total score
-  // const score = results.filter((result) => result.isCorrect).length;
-  // console.log(results);
 
   return (
     <BackgroundWrapper>
@@ -127,7 +103,7 @@ const ResultsPage = () => {
                                 className="flex-row border-2 border-white/0 items-center gap-4"
                               >
                                 <Text
-                                  className={`text-md rounded-full px-1 items-center justify-center border-[1px] ${
+                                  className={`text-md rounded-full px-3 py-1 items-center justify-center border-[1px] ${
                                     isCorrectAndUserAnswer
                                       ? "bg-[#113768] text-white" // Highlight with #113768 for correct user answer
                                       : isCorrectAnswer
@@ -174,8 +150,8 @@ const ResultsPage = () => {
         >
           <Text className="font-montBold text-white text-2xl">Next</Text>
         </TouchableOpacity>
-        <CustomBackHandler routeName={"/unit"} />
       </SafeAreaProvider>
+      <CustomBackHandler fallbackRoute="home" />
     </BackgroundWrapper>
   );
 };

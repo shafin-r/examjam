@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import Header from "@/components/Header";
@@ -50,29 +51,29 @@ export default function PaperScreen() {
     }, 1000);
   };
 
-  // if (!errorMsg) {
-  //   return (
-  //     <BackgroundWrapper>
-  //       <View className="h-screen">
-  //         <Header
-  //           displaySubject={name}
-  //           displayTabTitle={null}
-  //           displayUser={false}
-  //         />
-  //         <ScrollView
-  //           refreshControl={
-  //             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-  //           }
-  //         >
-  //           <View className="mt-5 px-5">
-  //             <DestructibleAlert text={errorMsg} extraStyles={""} />
-  //           </View>
-  //         </ScrollView>
-  //         <CustomBackHandler routeName={"category"} />
-  //       </View>
-  //     </BackgroundWrapper>
-  //   );
-  // }
+  if (errorMsg) {
+    return (
+      <BackgroundWrapper>
+        <View className="h-screen">
+          <Header
+            displaySubject={name}
+            displayTabTitle={null}
+            displayUser={false}
+          />
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          >
+            <View className="mt-5 px-5">
+              <DestructibleAlert text={errorMsg} extraStyles={""} />
+            </View>
+          </ScrollView>
+          <CustomBackHandler routeName={"category"} />
+        </View>
+      </BackgroundWrapper>
+    );
+  }
   return (
     <BackgroundWrapper>
       <View>
@@ -113,7 +114,7 @@ export default function PaperScreen() {
                 </View>
               ))
             ) : (
-              <DestructibleAlert text="There are no question papers." />
+              <ActivityIndicator size={"large"} />
             )}
           </View>
         </ScrollView>

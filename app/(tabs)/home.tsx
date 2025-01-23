@@ -42,156 +42,141 @@ const Home = () => {
   // For Rafeed
   // fetch function for leaderboard data.
   useEffect(() => {
+    let isMounted = true;
     async function fetchBoardData() {
       try {
-        const boardResponse = await fetch(`${API_URL}/leaderboard`, {
-          method: "GET",
-        });
-        const fetchedBoardData = await boardResponse.json();
-        setBoardData(fetchedBoardData);
+        const response = await fetch(`${API_URL}/leaderboard`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch leaderboard data");
+        }
+        const data = await response.json();
+        if (isMounted) setBoardData(data);
       } catch (error) {
-        setBoardError("Something went wrong. Please try again.");
+        if (isMounted) setBoardError(error.message || "An error occurred");
       }
     }
-
     fetchBoardData();
+    return () => {
+      isMounted = false; // Cleanup to avoid state updates after unmount
+    };
   }, []);
 
   const getTopThree = (boardData) => {
-    const sortedData = boardData.slice().sort((a, b) => b.points - a.points);
-
-    const topThree = sortedData.slice(0, 3).map((player, index) => ({
-      ...player,
-      rank: index + 1,
-      height: index === 0 ? 250 : index === 1 ? 200 : 170,
-    }));
-
-    return topThree;
+    if (!boardData || boardData.length === 0) return [];
+    return boardData
+      .slice()
+      .sort((a, b) => b.points - a.points)
+      .slice(0, 3)
+      .map((player, index) => ({
+        ...player,
+        rank: index + 1,
+        height: index === 0 ? 250 : index === 1 ? 200 : 170,
+      }));
   };
+
   return (
     <BackgroundWrapper>
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ flex: 1 }}>
         <Header displayTabTitle={null} displayUser image={profileImg} />
-        <ScrollView className="pt-10">
-          <View className="mx-10">
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+          <View style={styles.scrollViewWrapper}>
             <SlidingGallery />
-            <View className="pt-10 gap-10">
-              <View className="">
-                <View className="flex-row items-center justify-between">
-                  <Text
-                    className="text-3xl font-montBold text-[#113768]"
-                    style={{ fontSize: 25 }}
-                  >
-                    Categories
-                  </Text>
+            <View style={styles.mainContentWrapper}>
+              <View>
+                <View style={styles.categoriesHeader}>
+                  <Text style={styles.categoriesHeaderText}>Categories</Text>
                   <TouchableOpacity onPress={() => router.push("/categories")}>
                     <AntDesign name="arrowright" size={24} color="#113768" />
                   </TouchableOpacity>
                 </View>
-                <View className="gap-4 pt-7">
-                  <View className="flex-row justify-between ">
+                <View style={styles.categoriesContainer}>
+                  <View style={styles.categoriesContainerRow}>
                     <TouchableOpacity
                       disabled
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
-                      style={{ height: scaledHeight }}
+                      style={[
+                        styles.categoryButton,
+                        { height: scaledHeight, opacity: 0.5 },
+                      ]}
                     >
                       <Image
                         source={require("@/assets/images/icons/topic-test.png")}
-                        style={{ width: 78, height: 78 }}
+                        style={{ width: 70, height: 70 }}
                       />
-                      <Text
-                        className="text-lg font-montMedium text-[#113768]"
-                        style={{ fontSize: 15 }}
-                      >
-                        Topic Test
-                      </Text>
+                      <Text style={styles.categoryButtonText}>Topic Test</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => router.push("/unit")}
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25]"
-                      style={{ height: scaledHeight }}
+                      style={[styles.categoryButton, { height: scaledHeight }]}
                     >
                       <Image
                         source={require("@/assets/images/icons/mock-test.png")}
-                        style={{ width: 78, height: 78 }}
+                        style={{ width: 70, height: 70 }}
                       />
-                      <Text
-                        className="text-lg font-montMedium text-[#113768]"
-                        style={{ fontSize: 15 }}
-                      >
-                        Mock Test
-                      </Text>
+                      <Text style={styles.categoryButtonText}>Mock Test</Text>
                     </TouchableOpacity>
                   </View>
-                  <View className="flex-row justify-between ">
+                  <View style={styles.categoriesContainerRow}>
                     <TouchableOpacity
                       disabled
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
-                      style={{ height: scaledHeight }}
+                      style={[
+                        styles.categoryButton,
+                        { height: scaledHeight, opacity: 0.5 },
+                      ]}
                     >
                       <Image
                         source={require("@/assets/images/icons/past-paper.png")}
-                        style={{ width: 70, height: 70 }}
+                        style={{ width: 62, height: 62 }}
                       />
-                      <Text
-                        className="text-lg font-montMedium text-[#113768]"
-                        style={{ fontSize: 15 }}
-                      >
-                        Past Papers
-                      </Text>
+                      <Text style={styles.categoryButtonText}>Past Papers</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       disabled
-                      className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
-                      style={{ height: scaledHeight }}
+                      style={[
+                        styles.categoryButton,
+                        { height: scaledHeight, opacity: 0.5 },
+                      ]}
                     >
                       <Image
                         source={require("@/assets/images/icons/subject-test.png")}
-                        style={{ width: 78, height: 78 }}
+                        style={{ width: 70, height: 70 }}
                       />
-                      <Text
-                        className="text-lg font-montMedium text-[#113768]"
-                        style={{ fontSize: 15 }}
-                      >
+                      <Text style={styles.categoryButtonText}>
                         Subject Test
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
-              <View className="gap-6">
-                <Text className="text-3xl font-montBold text-[#113768]">
-                  Leaderboard
-                </Text>
-                <View className="border-2 border-[#c5dbf8] w-full py-[24] rounded-[20] px-7 gap-5">
-                  <View className="flex-row items-center justify-between">
-                    <Text className="text-xl font-montMedium">Top 3</Text>
+              <View style={styles.leaderBoardWrapper}>
+                <Text style={styles.leaderBoardHeaderText}>Leaderboard</Text>
+                <View style={styles.leaderBoardContainer}>
+                  <View style={styles.topThreeHeader}>
+                    <Text
+                      style={{ fontFamily: "Montserrat-Medium", fontSize: 18 }}
+                    >
+                      Top 3
+                    </Text>
                     <TouchableOpacity
-                      disabled
                       onPress={() => router.push("/leaderboard")}
                     >
                       <AntDesign name="arrowright" size={24} color="#113768" />
                     </TouchableOpacity>
                   </View>
                   <View
-                    className="w-full border-[#c5dbf8]"
-                    style={{ borderWidth: 1 }}
+                    style={{ borderWidth: 0.5, borderColor: "#c5dbf8" }}
                   ></View>
-                  <View className="gap-4">
+                  <View style={{ gap: 12 }}>
                     {getTopThree(boardData).map((student, idx) => (
-                      <View
-                        key={idx}
-                        className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
-                      >
+                      <View key={idx} style={styles.topThreeContainer}>
                         <View className="flex-row gap-3 items-center">
                           <Text className="font-montMedium text-xl">
                             {student.rank}
                           </Text>
                           <Image
-                            source={student.image}
+                            source={require("@/assets/images/static/avatar.jpg")}
                             style={{ width: 20, height: 20, borderRadius: 25 }}
                           />
-                          <Text className="font-montMedium text-md">
+                          <Text className="font-montMedium text-sm">
                             {student.name}
                           </Text>
                         </View>
@@ -280,3 +265,78 @@ const Home = () => {
   );
 };
 export default Home;
+
+const styles = StyleSheet.create({
+  scrollViewContainer: {
+    paddingTop: 40,
+  },
+  scrollViewWrapper: {
+    marginHorizontal: 35,
+  },
+  mainContentWrapper: {
+    paddingTop: 25,
+    gap: 35,
+  },
+  categoriesHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  categoriesHeaderText: {
+    fontSize: 25,
+    fontFamily: "Montserrat-Bold",
+    color: "#113768",
+  },
+  categoriesContainer: {
+    gap: 15,
+    paddingTop: 25,
+  },
+  categoriesContainerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  categoryButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#c5dbf8",
+    width: "48%",
+    borderRadius: 25,
+  },
+  categoryButtonText: {
+    fontSize: 15,
+    fontFamily: "Montserrat-Medium",
+    color: "#113768",
+  },
+  leaderBoardWrapper: {
+    gap: 20,
+  },
+  leaderBoardHeaderText: {
+    fontSize: 25,
+    fontFamily: "Montserrat-Bold",
+    color: "#113768",
+  },
+  leaderBoardContainer: {
+    borderWidth: 1,
+    borderColor: "#c5dbf8",
+    paddingVertical: 22,
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    gap: 15,
+  },
+  topThreeHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  topThreeContainer: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#c5dbf8",
+    borderRadius: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+});
