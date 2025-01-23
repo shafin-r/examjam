@@ -162,7 +162,7 @@ const ResultsPage = () => {
         >
           <Text className="font-montBold text-white text-2xl">Next</Text>
         </TouchableOpacity>
-        <CustomBackHandler />
+        <CustomBackHandler routeName={"/unit"} />
       </SafeAreaProvider>
     </BackgroundWrapper>
   );

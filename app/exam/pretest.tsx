@@ -151,6 +151,7 @@ export default function PretestPage() {
         </SafeAreaView>
         <StatusBar style="dark" />
       </SafeAreaProvider>
+      <CustomBackHandler routeName={"/unit"} />
     </BackgroundWrapper>
   );
 }
