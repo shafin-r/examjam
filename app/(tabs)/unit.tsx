@@ -14,7 +14,7 @@ import CustomBackHandler from "@/components/CustomBackHandler";
 const units = [
   {
     id: 3,
-    name: "C Unit (Humanities)",
+    name: "C Unit (Business Studies)",
     rating: 9,
   },
 ];
@@ -40,10 +40,6 @@ const UnitPage = () => {
                 units.map((unit) => (
                   <TouchableOpacity
                     key={unit.id}
-                    disabled={
-                      unit.name === "A Unit (Science)" ||
-                      unit.name === "B Unit (Business Studies)"
-                    }
                     onPress={() =>
                       router.push({
                         pathname: "/paper",
@@ -52,11 +48,7 @@ const UnitPage = () => {
                         },
                       })
                     }
-                    className={`border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2 ${
-                      (unit.name === "A Unit (Science)" ||
-                        unit.name === "B Unit (Business Studies)") &&
-                      "opacity-50"
-                    }`}
+                    className={`border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2 `}
                   >
                     <Text className="text-lg font-montMedium">{unit.name}</Text>
                     <Text className="text-sm font-montRegular">

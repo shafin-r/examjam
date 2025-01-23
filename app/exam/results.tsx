@@ -112,27 +112,39 @@ const ResultsPage = () => {
                       </View>
                       <View>
                         {Object.entries(question.options).map(
-                          ([key, option]) => (
-                            <View
-                              key={key}
-                              className="flex-row border-2 border-white/0 items-center gap-4"
-                            >
-                              <Text
-                                className={`text-md rounded-full px-1 items-center justify-center border-[1px] &
-                          ${
-                            question.userAnswer === key
-                              ? "bg-[#113768] text-white"
-                              : ""
-                          }
-                        }`}
+                          ([key, option]) => {
+                            const isCorrectAnswer =
+                              key === question.correctAnswer; // Check if this option is the correct answer
+                            const isUserAnswer = key === question.userAnswer; // Check if this option is the user's selected answer
+                            const isCorrectAndUserAnswer =
+                              isCorrectAnswer && isUserAnswer; // Check if the user's answer matches the correct answer
+                            const isUserAnswerWrong =
+                              isUserAnswer && !isCorrectAnswer; // Check if the user's answer is incorrect
+
+                            return (
+                              <View
+                                key={key}
+                                className="flex-row border-2 border-white/0 items-center gap-4"
                               >
-                                {key.toUpperCase()}
-                              </Text>
-                              <Text className="text-xl font-montRegular">
-                                {option}
-                              </Text>
-                            </View>
-                          )
+                                <Text
+                                  className={`text-md rounded-full px-1 items-center justify-center border-[1px] ${
+                                    isCorrectAndUserAnswer
+                                      ? "bg-[#113768] text-white" // Highlight with #113768 for correct user answer
+                                      : isCorrectAnswer
+                                      ? "bg-green-500 text-white" // Highlight green for the correct answer
+                                      : isUserAnswerWrong
+                                      ? "bg-red-500 text-white" // Highlight red for the user's wrong answer
+                                      : ""
+                                  }`}
+                                >
+                                  {key.toUpperCase()}
+                                </Text>
+                                <Text className="text-xl font-montRegular">
+                                  {option}
+                                </Text>
+                              </View>
+                            );
+                          }
                         )}
                       </View>
                       <View
