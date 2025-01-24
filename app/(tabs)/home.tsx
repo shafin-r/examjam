@@ -152,7 +152,7 @@ const Home = () => {
                 <View style={styles.leaderBoardContainer}>
                   <View style={styles.topThreeHeader}>
                     <Text
-                      style={{ fontFamily: "Montserrat-Medium", fontSize: 18 }}
+                      style={{ fontFamily: "Montserrat-Medium", fontSize: 17 }}
                     >
                       Top 3
                     </Text>
@@ -283,12 +283,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   categoriesHeaderText: {
-    fontSize: 25,
+    fontSize: 24,
+    borderWidth: 1,
+    borderColor: "transparent",
     fontFamily: "Montserrat-Bold",
     color: "#113768",
   },
   categoriesContainer: {
-    gap: 15,
+    gap: 16,
     paddingTop: 25,
   },
   categoriesContainerRow: {
@@ -304,9 +306,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   categoryButtonText: {
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: "Montserrat-Medium",
     color: "#113768",
+    borderWidth: 1,
+    borderColor: "transparent",
   },
   leaderBoardWrapper: {
     gap: 20,

@@ -114,7 +114,18 @@ export default function PaperScreen() {
                 </View>
               ))
             ) : (
-              <ActivityIndicator size={"large"} />
+              <View>
+                <ActivityIndicator size={"large"} />
+                <Text
+                  style={{
+                    fontFamily: "Montserrat-Medium",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  Loading...
+                </Text>
+              </View>
             )}
           </View>
         </ScrollView>

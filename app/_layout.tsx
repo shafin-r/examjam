@@ -5,11 +5,12 @@ import "../global.css";
 import { useEffect } from "react";
 import { TimerProvider } from "@/context/TimerContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { Text } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     "Montserrat-Black": require("@/assets/fonts/Montserrat-Black.ttf"),
     "Montserrat-BlackItalic": require("@/assets/fonts/Montserrat-BlackItalic.ttf"),
     "Montserrat-Bold": require("@/assets/fonts/Montserrat-Bold.ttf"),
@@ -31,14 +32,28 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
+    (async () => {
+      if (fontsLoaded || fontError) {
+        try {
+          await SplashScreen.hideAsync();
+        } catch (e) {
+          console.error("Failed to hide splash screen:", e);
+        }
+      }
+    })();
+  }, [fontsLoaded, fontError]);
 
-  if (!loaded && error) {
+  if (!fontsLoaded) {
+    if (fontError) {
+      return (
+        <Text style={{ textAlign: "center", marginTop: 50 }}>
+          Failed to load fonts: {fontError.message}
+        </Text>
+      );
+    }
     return null;
   }
+
   return (
     <AuthProvider>
       <TimerProvider>

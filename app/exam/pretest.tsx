@@ -128,7 +128,16 @@ export default function PretestPage() {
               </View>
             ) : (
               <View className="mt-60">
-                <ActivityIndicator />
+                <ActivityIndicator size={"large"} />
+                <Text
+                  style={{
+                    fontFamily: "Montserrat-Medium",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  Loading...
+                </Text>
               </View>
             )}
           </ScrollView>

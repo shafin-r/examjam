@@ -18,8 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#113768"
+        "foregroundImage": "./assets/images/adaptive-icon.png"
       },
       "package": "com.app.examjam"
     },
@@ -34,8 +33,9 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/adaptive-icon.png",
-          "imageWidth": 300,
-          "resizeMode": "contain"
+          "imageWidth": 500,
+          "resizeMode": "contain",
+          "backgroundColor": "#113768"
         }
       ],
       [

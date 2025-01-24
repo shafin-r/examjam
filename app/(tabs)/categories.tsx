@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+} from "react-native";
 import React from "react";
 import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
@@ -19,62 +25,61 @@ const CategoriesPage = () => {
           displaySubject={"Categories"}
           displayUser={false}
         />
-        <View className="gap-4 pt-7 mx-10">
-          <View className="flex-row justify-between ">
-            <TouchableOpacity
-              disabled
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
-              style={{ height: scaledHeight }}
-            >
-              <Image
-                source={require("@/assets/images/icons/topic-test.png")}
-                style={{ width: 78, height: 78 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Topic Test
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] "
-              style={{ height: scaledHeight }}
-              onPress={() => router.push("/unit")}
-            >
-              <Image
-                source={require("@/assets/images/icons/mock-test.png")}
-                style={{ width: 78, height: 78 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Mock Test
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View className="flex-row justify-between ">
-            <TouchableOpacity
-              disabled
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
-              style={{ height: scaledHeight }}
-            >
-              <Image
-                source={require("@/assets/images/icons/past-paper.png")}
-                style={{ width: 70, height: 70 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Past Papers
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              disabled
-              className="justify-center items-center border-2 border-[#c5dbf8] w-[48%] rounded-[25] opacity-50"
-              style={{ height: scaledHeight }}
-            >
-              <Image
-                source={require("@/assets/images/icons/subject-test.png")}
-                style={{ width: 78, height: 78 }}
-              />
-              <Text className="text-lg font-montMedium text-[#113768]">
-                Subject Test
-              </Text>
-            </TouchableOpacity>
+        <View style={{ paddingHorizontal: 30 }}>
+          <View style={styles.categoriesContainer}>
+            <View style={styles.categoriesContainerRow}>
+              <TouchableOpacity
+                disabled
+                style={[
+                  styles.categoryButton,
+                  { height: scaledHeight, opacity: 0.5 },
+                ]}
+              >
+                <Image
+                  source={require("@/assets/images/icons/topic-test.png")}
+                  style={{ width: 70, height: 70 }}
+                />
+                <Text style={styles.categoryButtonText}>Topic Test</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => router.push("/unit")}
+                style={[styles.categoryButton, { height: scaledHeight }]}
+              >
+                <Image
+                  source={require("@/assets/images/icons/mock-test.png")}
+                  style={{ width: 70, height: 70 }}
+                />
+                <Text style={styles.categoryButtonText}>Mock Test</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.categoriesContainerRow}>
+              <TouchableOpacity
+                disabled
+                style={[
+                  styles.categoryButton,
+                  { height: scaledHeight, opacity: 0.5 },
+                ]}
+              >
+                <Image
+                  source={require("@/assets/images/icons/past-paper.png")}
+                  style={{ width: 62, height: 62 }}
+                />
+                <Text style={styles.categoryButtonText}>Past Papers</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                disabled
+                style={[
+                  styles.categoryButton,
+                  { height: scaledHeight, opacity: 0.5 },
+                ]}
+              >
+                <Image
+                  source={require("@/assets/images/icons/subject-test.png")}
+                  style={{ width: 70, height: 70 }}
+                />
+                <Text style={styles.categoryButtonText}>Subject Test</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -84,3 +89,78 @@ const CategoriesPage = () => {
 };
 
 export default CategoriesPage;
+
+const styles = StyleSheet.create({
+  scrollViewContainer: {
+    paddingTop: 40,
+  },
+  scrollViewWrapper: {
+    marginHorizontal: 35,
+  },
+  mainContentWrapper: {
+    paddingTop: 25,
+    gap: 35,
+  },
+  categoriesHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  categoriesHeaderText: {
+    fontSize: 25,
+    fontFamily: "Montserrat-Bold",
+    color: "#113768",
+  },
+  categoriesContainer: {
+    gap: 15,
+    paddingTop: 25,
+  },
+  categoriesContainerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  categoryButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#c5dbf8",
+    width: "48%",
+    borderRadius: 25,
+  },
+  categoryButtonText: {
+    fontSize: 14,
+    fontFamily: "Montserrat-Medium",
+    color: "#113768",
+  },
+  leaderBoardWrapper: {
+    gap: 20,
+  },
+  leaderBoardHeaderText: {
+    fontSize: 25,
+    fontFamily: "Montserrat-Bold",
+    color: "#113768",
+  },
+  leaderBoardContainer: {
+    borderWidth: 1,
+    borderColor: "#c5dbf8",
+    paddingVertical: 22,
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    gap: 15,
+  },
+  topThreeHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  topThreeContainer: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#c5dbf8",
+    borderRadius: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+});

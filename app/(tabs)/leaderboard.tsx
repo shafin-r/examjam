@@ -13,6 +13,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { API_URL } from "@/lib/auth";
 import { getToken } from "@/lib/secure-store";
 import CustomBackHandler from "@/components/CustomBackHandler";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const LeaderboardPage = () => {
   const [boardError, setBoardError] = useState<string | null>(null);
@@ -132,107 +133,113 @@ const LeaderboardPage = () => {
   };
 
   return (
-    <SafeAreaProvider>
-      <Header displaySubject={"Leaderboard"} displayTabTitle={null} />
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        className=""
-      >
-        {boardData ? (
-          <View className="gap-4 mx-10 my-10">
-            <View>
-              <View className="flex-row justify-evenly items-end">
-                {getTopThree(boardData).map((student, idx) =>
-                  student ? (
+    <BackgroundWrapper>
+      <SafeAreaProvider>
+        <Header displaySubject={"Leaderboard"} displayTabTitle={null} />
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          className=""
+        >
+          {boardData ? (
+            <View className="gap-4 mx-10 my-10">
+              <View>
+                <View className="flex-row justify-evenly items-end">
+                  {getTopThree(boardData).map((student, idx) =>
+                    student ? (
+                      <View
+                        key={idx}
+                        className="w-[85] bg-[#113768] rounded-t-xl items-center border-2 border-white/0 gap-2 py-4"
+                        style={{ height: student.height }}
+                      >
+                        <Text className="font-montBold text-3xl text-white">
+                          {student.rank}
+                        </Text>
+                        <Image
+                          source={require("@/assets/images/static/avatar.jpg")}
+                          style={{ width: 30, height: 30, borderRadius: 20 }}
+                        />
+                        <Text className="font-montBold text-md text-center text-white">
+                          {student.name}
+                        </Text>
+                        <Text className="font-montRegular text-sm text-white">
+                          ({student.points}pt)
+                        </Text>
+                      </View>
+                    ) : null
+                  )}
+                </View>
+                <View
+                  className="w-full border-[#c5dbf8] bg-[#c5dbf8]"
+                  style={{ borderWidth: 2 }}
+                ></View>
+              </View>
+              <View className="border-[1px] border-[#c0dafc] gap-4 h-fit w-full rounded-[25] p-6">
+                <View>
+                  {getUserData(boardData, userData?.name).map((user, idx) => (
                     <View
                       key={idx}
-                      className="w-[85] bg-[#113768] rounded-t-xl items-center border-2 border-white/0 gap-2 py-4"
-                      style={{ height: student.height }}
+                      className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
                     >
-                      <Text className="font-montBold text-3xl text-white">
-                        {student.rank}
-                      </Text>
-                      <Image
-                        source={require("@/assets/images/static/avatar.jpg")}
-                        style={{ width: 30, height: 30, borderRadius: 20 }}
-                      />
-                      <Text className="font-montBold text-md text-center text-white">
-                        {student.name}
-                      </Text>
-                      <Text className="font-montRegular text-sm text-white">
-                        ({student.points}pt)
-                      </Text>
-                    </View>
-                  ) : null
-                )}
-              </View>
-              <View
-                className="w-full border-[#c5dbf8] bg-[#c5dbf8]"
-                style={{ borderWidth: 2 }}
-              ></View>
-            </View>
-            <View className="border-[1px] border-[#c0dafc] gap-4 h-fit w-full rounded-[25] p-6">
-              <View>
-                {getUserData(boardData, userData?.name).map((user, idx) => (
-                  <View
-                    key={idx}
-                    className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
-                  >
-                    <View className="flex-row gap-3 items-center">
-                      <Text className="font-montMedium text-lg">
-                        {user.rank}
-                      </Text>
-                      <Image
-                        source={require("@/assets/images/static/avatar.jpg")}
-                        style={{ width: 20, height: 20, borderRadius: 25 }}
-                      />
-                      <Text className="font-montMedium text-sm">
-                        {user.name.split(" ").slice(0, 2).join(" ")}
+                      <View className="flex-row gap-3 items-center">
+                        <Text className="font-montMedium text-lg">
+                          {user.rank}
+                        </Text>
+                        <Image
+                          source={require("@/assets/images/static/avatar.jpg")}
+                          style={{ width: 20, height: 20, borderRadius: 25 }}
+                        />
+                        <Text className="font-montMedium text-sm">
+                          {user.name.split(" ").slice(0, 2).join(" ")}
+                        </Text>
+                      </View>
+                      <Text className="font-montMedium text-[#000]/40">
+                        {user.points}pt
                       </Text>
                     </View>
-                    <Text className="font-montMedium text-[#000]/40">
-                      {user.points}pt
-                    </Text>
-                  </View>
-                ))}
-              </View>
-              <View
-                className="w-full border-[#c5dbf8] bg-[#c5dbf8]"
-                style={{ borderWidth: 1 }}
-              ></View>
-              {getLeaderboard(boardData).map((user, idx) => (
-                <View
-                  key={idx}
-                  className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
-                >
-                  <View className="flex-row gap-3 items-center">
-                    <Text className="font-montMedium text-lg">{idx + 1}</Text>
-                    <Image
-                      source={require("@/assets/images/static/avatar.jpg")}
-                      style={{ width: 20, height: 20, borderRadius: 25 }}
-                    />
-                    <Text className="font-montMedium text-sm">
-                      {user.name.split(" ").slice(0, 2).join(" ")}
-                    </Text>
-                  </View>
-                  <Text className="font-montMedium text-[#000]/40">
-                    {user.points}pt
-                  </Text>
+                  ))}
                 </View>
-              ))}
+                <View
+                  className="w-full border-[#c5dbf8] bg-[#c5dbf8]"
+                  style={{ borderWidth: 1 }}
+                ></View>
+                {getLeaderboard(boardData)
+                  .slice(0, 10)
+                  .map((user, idx) => (
+                    <View
+                      key={idx}
+                      className="flex-row border-2 border-[#c5dbf8] rounded-[8] py-2 px-4 justify-between items-center"
+                    >
+                      <View className="flex-row gap-3 items-center">
+                        <Text className="font-montMedium text-lg">
+                          {idx + 1}
+                        </Text>
+                        <Image
+                          source={require("@/assets/images/static/avatar.jpg")}
+                          style={{ width: 20, height: 20, borderRadius: 25 }}
+                        />
+                        <Text className="font-montMedium text-sm">
+                          {user.name.split(" ").slice(0, 2).join(" ")}
+                        </Text>
+                      </View>
+                      <Text className="font-montMedium text-[#000]/40">
+                        {user.points}pt
+                      </Text>
+                    </View>
+                  ))}
+              </View>
             </View>
-          </View>
-        ) : (
-          <SafeAreaProvider>
-            <Header displaySubject={"Leaderboard"} displayTabTitle={null} />
-            <ActivityIndicator size={"large"} />
-          </SafeAreaProvider>
-        )}
-      </ScrollView>
-      <CustomBackHandler fallbackRoute="home" />
-    </SafeAreaProvider>
+          ) : (
+            <SafeAreaProvider>
+              <Header displaySubject={"Leaderboard"} displayTabTitle={null} />
+              <ActivityIndicator size={"large"} />
+            </SafeAreaProvider>
+          )}
+        </ScrollView>
+        <CustomBackHandler fallbackRoute="home" useCustomHandler={false} />
+      </SafeAreaProvider>
+    </BackgroundWrapper>
   );
 };
 
