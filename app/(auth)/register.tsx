@@ -13,7 +13,7 @@ import { Image } from "expo-image";
 import FormField from "@/components/FormField";
 import { register } from "@/lib/auth";
 import { useAuth } from "@/context/AuthContext";
-
+import DestructibleAlert from "@/components/DestructibleAlert";
 const RegisterScreen = () => {
   const { setToken } = useAuth();
   const router = useRouter();
@@ -28,14 +28,60 @@ const RegisterScreen = () => {
   });
   const [error, setError] = useState<string | null>(null);
 
-  // For Rafeed
-  // Function to login a user. I've kept it in a barebones form right now, but you can just call the login function from  /lib/auth.ts and pass on the form.
+  const handleError = (error) => {
+    // Check if error has a "detail" property
+    if (error?.detail) {
+      // Match the field causing the issue
+      const match = error.detail.match(/Key \((.*?)\)=\((.*?)\)/);
+
+      if (match) {
+        const field = match[1]; // The field name, e.g., "phone"
+        const value = match[2]; // The duplicate value, e.g., "0987654321"
+        return `The ${field} already exists. Please use a different value.`;
+      }
+    }
+    return "An unexpected error occurred. Please try again.";
+  };
+
+  // Output: The phone field already exists with the value "0987654321". Please use a different value.
+  console.log("I'm here");
+  // Function to validate the form
+  const validateForm = () => {
+    const { sscRoll, hscRoll, password } = form;
+
+    // Check if SSC Roll and HSC Roll are unique
+    if (sscRoll === hscRoll) {
+      return "SSC Roll and HSC Roll must be unique.";
+    }
+
+    // Check password requirements
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,16}$/;
+    if (!passwordRegex.test(password)) {
+      return "Password must be 8-16 characters long, include at least one uppercase letter and one special character.";
+    }
+
+    return null; // No errors
+  };
+
   const createUser = async () => {
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     try {
-      await register(form, setToken); // Call the login function
-      router.push("/home"); // Redirect on successful login
+      await register(form, setToken); // Call the register function
+      router.push("/home"); // Redirect on successful registration
     } catch (error: any) {
-      setError(error.message); // Handle error messages
+      console.error("Error:", error.response || error.message);
+      if (error.response?.detail) {
+        const decodedError = handleError({ detail: error.response.detail });
+        setError(decodedError);
+      } else {
+        setError(error.message || "An unexpected error occurred.");
+      }
     }
   };
 
@@ -98,6 +144,7 @@ const RegisterScreen = () => {
                     handleChangeText={(e) => setForm({ ...form, password: e })}
                   />
                 </View>
+                {error && <DestructibleAlert text={error} />}
                 <TouchableOpacity
                   onPress={() => createUser()}
                   style={styles.continue}

@@ -21,6 +21,21 @@ export const login = async (
   setToken(data.token); // Update the token in context
 };
 
+const handleError = (error) => {
+  // Check if error has a "detail" property
+  if (error?.detail) {
+    // Match the field causing the issue
+    const match = error.detail.match(/Key \((.*?)\)=\((.*?)\)/);
+
+    if (match) {
+      const field = match[1]; // The field name, e.g., "phone"
+      const value = match[2]; // The duplicate value, e.g., "0987654321"
+      return `The ${field} already exists. Please use a different value.`;
+    }
+  }
+  return "An unexpected error occurred. Please try again.";
+};
+
 export const register = async (
   form: {
     name: string;
@@ -40,8 +55,15 @@ export const register = async (
     },
     body: JSON.stringify(form),
   });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || "Registration failed");
+
+  const data = await response.json(); // Parse the response JSON
+
+  if (!response.ok) {
+    // Instead of throwing a string, include full error data for debugging
+    const error = new Error(data?.detail || "Registration failed");
+    (error as any).response = data; // Attach the full response for later use
+    throw error;
+  }
 
   await saveToken(data.token); // Save the token to secure storage
   setToken(data.token); // Update the token in context

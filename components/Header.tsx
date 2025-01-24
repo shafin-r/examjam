@@ -99,7 +99,9 @@ const Header = ({
       {displayUser && (
         <View style={styles.profile}>
           <Image source={image} style={styles.profileImg} />
-          <Text style={styles.text}>Hello, {userData?.name}</Text>
+          <Text style={styles.text}>
+            Hello {userData?.name ? userData.name.split(" ")[0] : ""}
+          </Text>
         </View>
       )}
       {displaySubject && (

@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setToken(storedToken);
         router.replace("/home"); // Redirect to the home page if logged in
       } else {
-        router.replace("/login"); // Redirect to the login page if not logged in
+        router.replace("/"); // Redirect to the login page if not logged in
       }
     };
 

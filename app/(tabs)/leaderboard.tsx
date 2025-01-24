@@ -188,7 +188,7 @@ const LeaderboardPage = () => {
                         style={{ width: 20, height: 20, borderRadius: 25 }}
                       />
                       <Text className="font-montMedium text-sm">
-                        {user.name}
+                        {user.name.split(" ").slice(0, 2).join(" ")}
                       </Text>
                     </View>
                     <Text className="font-montMedium text-[#000]/40">
@@ -212,7 +212,9 @@ const LeaderboardPage = () => {
                       source={require("@/assets/images/static/avatar.jpg")}
                       style={{ width: 20, height: 20, borderRadius: 25 }}
                     />
-                    <Text className="font-montMedium text-sm">{user.name}</Text>
+                    <Text className="font-montMedium text-sm">
+                      {user.name.split(" ").slice(0, 2).join(" ")}
+                    </Text>
                   </View>
                   <Text className="font-montMedium text-[#000]/40">
                     {user.points}pt

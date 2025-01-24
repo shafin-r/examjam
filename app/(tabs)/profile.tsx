@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
 import { useAuth } from "@/context/AuthContext";
+import { API_URL } from "@/lib/auth";
+import { getToken } from "@/lib/secure-store";
 
 const Profile = () => {
   return (
