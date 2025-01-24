@@ -78,7 +78,7 @@ const CategoriesPage = () => {
           </View>
         </View>
       </View>
-      <CustomBackHandler routeName="/home" />
+      <CustomBackHandler fallbackRoute="home" useCustomHandler={false} />
     </BackgroundWrapper>
   );
 };

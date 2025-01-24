@@ -69,7 +69,7 @@ const UnitPage = () => {
         </View>
       </View>
       <StatusBar style="light" />
-      <CustomBackHandler routeName={"home"} />
+      <CustomBackHandler fallbackRoute="home" useCustomHandler={false} />
     </BackgroundWrapper>
   );
 };

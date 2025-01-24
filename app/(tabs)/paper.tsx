@@ -69,7 +69,7 @@ export default function PaperScreen() {
               <DestructibleAlert text={errorMsg} extraStyles={""} />
             </View>
           </ScrollView>
-          <CustomBackHandler routeName={"category"} />
+          <CustomBackHandler fallbackRoute={"unit"} />
         </View>
       </BackgroundWrapper>
     );
@@ -99,7 +99,7 @@ export default function PaperScreen() {
                   <TouchableOpacity
                     onPress={() =>
                       router.push(
-                        `/exam/pretest?id=${mock.id}&title=${mock.title}&rating=${mock.rating}`
+                        `/exam/pretest?unitname=${name}&id=${mock.id}&title=${mock.title}&rating=${mock.rating}`
                       )
                     }
                     className="border-2 border-[#B0C2DA] py-4 rounded-[10] px-6 gap-2"
@@ -119,7 +119,7 @@ export default function PaperScreen() {
           </View>
         </ScrollView>
       </View>
-      <CustomBackHandler routeName={"unit"} />
+      <CustomBackHandler fallbackRoute="unit" useCustomHandler={false} />
     </BackgroundWrapper>
   );
 }

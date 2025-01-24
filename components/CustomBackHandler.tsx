@@ -1,30 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { BackHandler } from "react-native";
 import { useRouter } from "expo-router";
 
 type CustomBackHandlerProps = {
-  fallbackRoute: string; // The route to navigate to when pressing back
+  useCustomHandler: boolean; // Toggle between custom and fallback behavior
+  customHandler?: () => void; // Custom function to execute on back press
+  fallbackRoute?: string; // Fallback route if customHandler is not used
 };
 
 const CustomBackHandler: React.FC<CustomBackHandlerProps> = ({
+  useCustomHandler,
+  customHandler,
   fallbackRoute,
 }) => {
   const router = useRouter();
 
-  useEffect(() => {
-    const onBackPress = () => {
-      // Navigate to the fallback route
-      router.replace(`/${fallbackRoute}`);
-      return true; // Prevent default back behavior
-    };
+  // Back press handler
+  const onBackPress = useCallback(() => {
+    console.log("Back button pressed.");
+    if (useCustomHandler && customHandler) {
+      console.log("Custom handler triggered");
+      customHandler(); // Trigger custom behavior
+    } else if (fallbackRoute) {
+      console.log(`Navigating to fallbackRoute: ${fallbackRoute}`);
+      router.replace(`/${fallbackRoute}`); // Navigate to fallback route
+    }
+    return true; // Prevent default behavior
+  }, [useCustomHandler, customHandler, fallbackRoute, router]);
 
-    // Registering the back press handler
+  useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", onBackPress);
     };
-  }, [fallbackRoute, router]);
+  }, [onBackPress]);
 
   return null;
 };

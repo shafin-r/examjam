@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useCallback, useReducer } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -133,6 +134,27 @@ export default function ExamPage() {
       console.error("Error submitting answers:", error);
     }
   };
+  const showExitDialog = () => {
+    Alert.alert(
+      "Quit exam?",
+      "Are you sure you want to quit the exam?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log(),
+          style: "cancel", // Optional for iOS
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            stopTimer();
+            router.push("/unit");
+          },
+        },
+      ],
+      { cancelable: false } // Prevent closing the dialog by tapping outside (optional)
+    );
+  };
 
   if (submissionLoading) {
     return (
@@ -150,6 +172,11 @@ export default function ExamPage() {
               Submitting...
             </Text>
           </View>
+          <CustomBackHandler
+            fallbackRoute="home"
+            useCustomHandler={true}
+            customHandler={showExitDialog}
+          />
         </SafeAreaProvider>
       </BackgroundWrapper>
     );
@@ -180,7 +207,11 @@ export default function ExamPage() {
             <Text style={styles.submitText}>Submit</Text>
           </TouchableOpacity>
         </View>
-        <CustomBackHandler />
+        <CustomBackHandler
+          fallbackRoute="home"
+          useCustomHandler={true}
+          customHandler={showExitDialog}
+        />
       </SafeAreaProvider>
     </BackgroundWrapper>
   );

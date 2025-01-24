@@ -12,6 +12,7 @@ import DestructibleAlert from "@/components/DestructibleAlert";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { API_URL } from "@/lib/auth";
 import { getToken } from "@/lib/secure-store";
+import CustomBackHandler from "@/components/CustomBackHandler";
 
 const LeaderboardPage = () => {
   const [boardError, setBoardError] = useState<string | null>(null);
@@ -230,6 +231,7 @@ const LeaderboardPage = () => {
           </SafeAreaProvider>
         )}
       </ScrollView>
+      <CustomBackHandler fallbackRoute="home" />
     </SafeAreaProvider>
   );
 };

@@ -150,8 +150,8 @@ const ResultsPage = () => {
         >
           <Text className="font-montBold text-white text-2xl">Next</Text>
         </TouchableOpacity>
+        <CustomBackHandler fallbackRoute="unit" useCustomHandler={false} />
       </SafeAreaProvider>
-      <CustomBackHandler fallbackRoute="home" />
     </BackgroundWrapper>
   );
 };

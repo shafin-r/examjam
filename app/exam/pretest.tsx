@@ -22,7 +22,7 @@ import { API_URL } from "@/lib/auth";
 
 export default function PretestPage() {
   const router = useRouter();
-  const { id, title, rating } = useLocalSearchParams();
+  const { name, id, title, rating } = useLocalSearchParams();
   const [metadata, setMetadata] = useState();
   async function fetchQuestions() {
     try {
@@ -107,8 +107,7 @@ export default function PretestPage() {
                   <View className="flex-row pr-4">
                     <Text className="mx-4">{`\u2022`}</Text>
                     <Text className="font-montRegular text-lg">
-                      1 mark awarded for a correct answer. There is negative
-                      marking for the wrong answer.
+                      There is negative marking for the wrong answer.
                     </Text>
                   </View>
                   <View className="flex-row  pr-4">
@@ -150,6 +149,7 @@ export default function PretestPage() {
           </TouchableOpacity>
         </SafeAreaView>
         <StatusBar style="dark" />
+        <CustomBackHandler fallbackRoute={`paper`} />
       </SafeAreaProvider>
     </BackgroundWrapper>
   );
