@@ -5,6 +5,7 @@ import DestructibleAlert from "@/components/DestructibleAlert";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/lib/auth";
 import { getToken } from "@/lib/secure-store";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const Profile = () => {
   return (
@@ -14,7 +15,11 @@ const Profile = () => {
         displayTabTitle="My Profile"
         displayUser={false}
       />
-      <View className="mx-10"></View>
+      <BackgroundWrapper>
+        <View className="mx-10">
+          <DestructibleAlert text="Work in progress" extraStyles={"mt-10"} />
+        </View>
+      </BackgroundWrapper>
     </View>
   );
 };

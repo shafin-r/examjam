@@ -112,7 +112,7 @@ const LeaderboardPage = () => {
     const topThree = sortedData.slice(0, 3).map((player, index) => ({
       ...player,
       rank: index + 1,
-      height: index === 0 ? 250 : index === 1 ? 200 : 170,
+      height: index === 0 ? 280 : index === 1 ? 250 : 220,
     }));
 
     return [topThree[1], topThree[0], topThree[2]].filter(Boolean); // Handle missing players

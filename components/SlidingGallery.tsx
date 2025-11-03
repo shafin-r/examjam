@@ -11,6 +11,7 @@ import { Image } from "expo-image";
 import { Link } from "expo-router";
 
 const { width } = Dimensions.get("window");
+const slideWidth = width * 0.9;
 
 const styles = StyleSheet.create({
   gallery: {
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     flexDirection: "row",
-    width: "100%",
     height: "100%",
     backgroundColor: "#fff",
     borderRadius: 25,
@@ -77,7 +77,7 @@ const views = [
     id: "1",
     content: (
       <Link href="https://www.facebook.com/share/g/15jdqESvWV/?mibextid=wwXIfr">
-        <View style={styles.facebook}>
+        <View style={[styles.facebook, { width: slideWidth }]}>
           <View style={styles.textView}>
             <Text style={styles.facebookOne}>Meet, Share, and Learn!</Text>
             <Text style={styles.facebookTwo}>Join Facebook Community</Text>

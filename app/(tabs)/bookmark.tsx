@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import Header from "@/components/Header";
 import DestructibleAlert from "@/components/DestructibleAlert";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const Bookmark = () => {
   return (
@@ -11,9 +12,11 @@ const Bookmark = () => {
         displayTabTitle="Bookmarks"
         displayUser={false}
       />
-      <View className="mx-10">
-        <DestructibleAlert extraStyles="mt-10" text="Page under work." />
-      </View>
+      <BackgroundWrapper>
+        <View className="mx-10">
+          <DestructibleAlert extraStyles="mt-10" text="Page under work." />
+        </View>
+      </BackgroundWrapper>
     </View>
   );
 };
